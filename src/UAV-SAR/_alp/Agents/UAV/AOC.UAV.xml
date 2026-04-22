@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ActiveObjectClass>
+	<Id>1776879532567</Id>
+	<Name><![CDATA[UAV]]></Name>
+	<Generic>false</Generic>
+	<GenericParameter>
+		<Id>1776879532572</Id>
+		<Name><![CDATA[1776879532572]]></Name>
+		<GenericParameterValue Class="CodeValue">
+			<Code><![CDATA[T extends Agent]]></Code>
+		</GenericParameterValue>
+		<GenericParameterLabel>Generic parameter:</GenericParameterLabel>
+	</GenericParameter>
+	<FlowChartsUsage>ENTITY</FlowChartsUsage>
+	<SamplesToKeep>100</SamplesToKeep>
+	<LimitNumberOfArrayElements>false</LimitNumberOfArrayElements>
+	<ElementsLimitValue>100</ElementsLimitValue>
+	<MakeDefaultViewArea>true</MakeDefaultViewArea>
+	<SceneGridColor/>
+	<SceneBackgroundColor>-4144960</SceneBackgroundColor>
+	<SceneSkybox>null</SceneSkybox>
+	<AgentProperties>
+		<EnvironmentDefinesInitialLocation>true</EnvironmentDefinesInitialLocation>
+		<RotateAnimationTowardsMovement>true</RotateAnimationTowardsMovement>
+		<RotateAnimationVertically>false</RotateAnimationVertically>
+		<VelocityCode Class="CodeUnitValue">
+			<Code><![CDATA[10]]></Code>
+			<Unit Class="SpeedUnits">MPS</Unit>
+		</VelocityCode>
+		<PhysicalLength Class="CodeUnitValue">
+			<Code><![CDATA[1]]></Code>
+			<Unit Class="LengthUnits">METER</Unit>
+		</PhysicalLength>
+		<PhysicalWidth Class="CodeUnitValue">
+			<Code><![CDATA[1]]></Code>
+			<Unit Class="LengthUnits">METER</Unit>
+		</PhysicalWidth>
+		<PhysicalHeight Class="CodeUnitValue">
+			<Code><![CDATA[1]]></Code>
+			<Unit Class="LengthUnits">METER</Unit>
+		</PhysicalHeight>
+	</AgentProperties>
+	<EnvironmentProperties>
+		<EnableSteps>false</EnableSteps>
+		<StepDurationCode Class="CodeUnitValue">
+			<Code><![CDATA[1.0]]></Code>
+			<Unit Class="TimeUnits">SECOND</Unit>
+		</StepDurationCode>
+		<SpaceType>CONTINUOUS</SpaceType>
+		<WidthCode>500</WidthCode>
+		<HeightCode>500</HeightCode>
+		<ZHeightCode>0</ZHeightCode>
+		<ColumnsCountCode>100</ColumnsCountCode>
+		<RowsCountCode>100</RowsCountCode>
+		<NeigborhoodType>MOORE</NeigborhoodType>
+		<LayoutType>USER_DEF</LayoutType>
+		<NetworkType>USER_DEF</NetworkType>
+		<ConnectionsPerAgentCode>2</ConnectionsPerAgentCode>
+		<ConnectionsRangeCode>50</ConnectionsRangeCode>
+		<NeighborLinkFractionCode>0.95</NeighborLinkFractionCode>
+		<MCode>10</MCode>
+	</EnvironmentProperties>
+	<DatasetsCreationProperties>
+		<AutoCreate>true</AutoCreate>
+		<Id>1776879532566</Id>
+		<OccurrenceAtTime>true</OccurrenceAtTime>
+		<OccurrenceDate>1776931200000</OccurrenceDate>
+		<OccurrenceTime Class="CodeUnitValue">
+			<Code><![CDATA[0]]></Code>
+			<Unit Class="TimeUnits">SECOND</Unit>
+		</OccurrenceTime>
+		<RecurrenceCode Class="CodeUnitValue">
+			<Code><![CDATA[1]]></Code>
+			<Unit Class="TimeUnits">SECOND</Unit>
+		</RecurrenceCode>
+	</DatasetsCreationProperties>
+	<ScaleRuler>
+		<Id>1776879532570</Id>
+		<Name><![CDATA[scale]]></Name>
+		<X>-50</X>
+		<Y>-130</Y>
+		<PublicFlag>false</PublicFlag>
+		<PresentationFlag>false</PresentationFlag>
+		<ShowLabel>false</ShowLabel>
+		<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+		<Length>100</Length>
+		<Rotation>0</Rotation>
+		<ScaleType>BASED_ON_LENGTH</ScaleType>
+		<ModelLength>10</ModelLength>
+		<LengthUnits>METER</LengthUnits>
+		<Scale>10</Scale>
+		<InheritedFromParentAgentType>true</InheritedFromParentAgentType>
+	</ScaleRuler>
+	<CurrentLevel>1776879532573</CurrentLevel>
+	<ConnectionsId>1776879532568</ConnectionsId>
+	<Variables xmlns:al="http://anylogic.com"/>
+	<StatechartElements>
+		<StatechartElement Class="State" ParentState="ROOT_NODE">
+			<Id>1776879999910</Id>
+			<Name><![CDATA[Explore]]></Name>
+			<X>270</X>
+			<Y>100</Y>
+			<Label>
+				<X>10</X>
+				<Y>10</Y>
+			</Label>
+			<PublicFlag>false</PublicFlag>
+			<PresentationFlag>true</PresentationFlag>
+			<ShowLabel>true</ShowLabel>
+			<Properties Width="300" Height="300">
+				<FillColor/>
+			</Properties>
+		</StatechartElement>
+		<StatechartElement Class="State" ParentState="ROOT_NODE">
+			<Id>1776880023728</Id>
+			<Name><![CDATA[Exploit]]></Name>
+			<X>670</X>
+			<Y>100</Y>
+			<Label>
+				<X>10</X>
+				<Y>10</Y>
+			</Label>
+			<PublicFlag>false</PublicFlag>
+			<PresentationFlag>true</PresentationFlag>
+			<ShowLabel>true</ShowLabel>
+			<Properties Width="300" Height="300">
+				<FillColor/>
+			</Properties>
+		</StatechartElement>
+		<StatechartElement Class="State" ParentState="Explore" ParentStateId="1776879999910">
+			<Id>1776880228954</Id>
+			<Name><![CDATA[AcoPush]]></Name>
+			<X>370</X>
+			<Y>170</Y>
+			<Label>
+				<X>10</X>
+				<Y>10</Y>
+			</Label>
+			<PublicFlag>false</PublicFlag>
+			<PresentationFlag>true</PresentationFlag>
+			<ShowLabel>true</ShowLabel>
+			<Properties Width="100" Height="30">
+				<FillColor/>
+			</Properties>
+		</StatechartElement>
+		<StatechartElement Class="State" ParentState="Exploit" ParentStateId="1776880023728">
+			<Id>1776880244591</Id>
+			<Name><![CDATA[AcoPull]]></Name>
+			<X>770</X>
+			<Y>170</Y>
+			<Label>
+				<X>10</X>
+				<Y>10</Y>
+			</Label>
+			<PublicFlag>false</PublicFlag>
+			<PresentationFlag>true</PresentationFlag>
+			<ShowLabel>true</ShowLabel>
+			<Properties Width="100" Height="30">
+				<FillColor/>
+			</Properties>
+		</StatechartElement>
+		<StatechartElement Class="Transition" ParentState="ROOT_NODE">
+			<Id>1776880064943</Id>
+			<Name><![CDATA[transition]]></Name>
+			<X>570</X>
+			<Y>200</Y>
+			<Label>
+				<X>10</X>
+				<Y>0</Y>
+			</Label>
+			<PublicFlag>false</PublicFlag>
+			<PresentationFlag>true</PresentationFlag>
+			<ShowLabel>false</ShowLabel>
+			<Points>
+				<Point>
+					<X>0</X>
+					<Y>0</Y>
+				</Point>
+				<Point>
+					<X>99</X>
+					<Y>1</Y>
+				</Point>
+			</Points>
+			<IconOffset>20.0</IconOffset>
+			<Properties Source="1776879999910" Trigger="timeout">
+				<Timeout Class="CodeUnitValue">
+					<Code><![CDATA[1]]></Code>
+					<Unit Class="TimeUnits">SECOND</Unit>
+				</Timeout>
+				<Condition>true</Condition>
+				<Rate Class="CodeUnitValue">
+					<Code><![CDATA[1]]></Code>
+					<Unit Class="RateUnits">PER_SECOND</Unit>
+				</Rate>
+				<MessageType>Object</MessageType>
+				<DefaultTransition>true</DefaultTransition>
+				<FilterType>unconditionally</FilterType>
+				<EqualsExpression>"text"</EqualsExpression>
+				<SatisfiesExpression>true</SatisfiesExpression>
+			</Properties>
+		</StatechartElement>
+		<StatechartElement Class="Transition" ParentState="ROOT_NODE">
+			<Id>1776880073206</Id>
+			<Name><![CDATA[transition1]]></Name>
+			<X>670</X>
+			<Y>300</Y>
+			<Label>
+				<X>10</X>
+				<Y>0</Y>
+			</Label>
+			<PublicFlag>false</PublicFlag>
+			<PresentationFlag>true</PresentationFlag>
+			<ShowLabel>false</ShowLabel>
+			<Points>
+				<Point>
+					<X>0</X>
+					<Y>0</Y>
+				</Point>
+				<Point>
+					<X>-100</X>
+					<Y>0</Y>
+				</Point>
+			</Points>
+			<IconOffset>20.0</IconOffset>
+			<Properties Source="1776880023728" Target="1776879999910" Trigger="timeout">
+				<Timeout Class="CodeUnitValue">
+					<Code><![CDATA[1]]></Code>
+					<Unit Class="TimeUnits">SECOND</Unit>
+				</Timeout>
+				<Condition>true</Condition>
+				<Rate Class="CodeUnitValue">
+					<Code><![CDATA[1]]></Code>
+					<Unit Class="RateUnits">PER_SECOND</Unit>
+				</Rate>
+				<MessageType>Object</MessageType>
+				<DefaultTransition>true</DefaultTransition>
+				<FilterType>unconditionally</FilterType>
+				<EqualsExpression>"text"</EqualsExpression>
+				<SatisfiesExpression>true</SatisfiesExpression>
+			</Properties>
+		</StatechartElement>
+		<StatechartElement Class="EntryPoint" ParentState="ROOT_NODE">
+			<Id>1776880203347</Id>
+			<Name><![CDATA[Init]]></Name>
+			<X>420</X>
+			<Y>70</Y>
+			<Label>
+				<X>10</X>
+				<Y>0</Y>
+			</Label>
+			<PublicFlag>false</PublicFlag>
+			<PresentationFlag>true</PresentationFlag>
+			<ShowLabel>true</ShowLabel>
+			<Points>
+				<Point>
+					<X>0</X>
+					<Y>0</Y>
+				</Point>
+				<Point>
+					<X>0</X>
+					<Y>30</Y>
+				</Point>
+			</Points>
+			<Properties Target="1776879999910"/>
+		</StatechartElement>
+		<StatechartElement Class="InitialStatePointer"
+                     ParentState="Explore"
+                     ParentStateId="1776879999910">
+			<Id>1776880358091</Id>
+			<Name><![CDATA[initialState]]></Name>
+			<X>420</X>
+			<Y>130</Y>
+			<Label>
+				<X>10</X>
+				<Y>0</Y>
+			</Label>
+			<PublicFlag>false</PublicFlag>
+			<PresentationFlag>true</PresentationFlag>
+			<ShowLabel>false</ShowLabel>
+			<Points>
+				<Point>
+					<X>0</X>
+					<Y>0</Y>
+				</Point>
+				<Point>
+					<X>0</X>
+					<Y>40</Y>
+				</Point>
+			</Points>
+			<Properties Target="1776880228954"/>
+		</StatechartElement>
+		<StatechartElement Class="InitialStatePointer"
+                     ParentState="Exploit"
+                     ParentStateId="1776880023728">
+			<Id>1776880365171</Id>
+			<Name><![CDATA[initialState1]]></Name>
+			<X>820</X>
+			<Y>130</Y>
+			<Label>
+				<X>10</X>
+				<Y>0</Y>
+			</Label>
+			<PublicFlag>false</PublicFlag>
+			<PresentationFlag>true</PresentationFlag>
+			<ShowLabel>false</ShowLabel>
+			<Points>
+				<Point>
+					<X>0</X>
+					<Y>0</Y>
+				</Point>
+				<Point>
+					<X>0</X>
+					<Y>40</Y>
+				</Point>
+			</Points>
+			<Properties Target="1776880244591"/>
+		</StatechartElement>
+	</StatechartElements>
+	<AgentLinks>
+		<AgentLink>
+			<Id>1776879532568</Id>
+			<Name><![CDATA[connections]]></Name>
+			<X>20</X>
+			<Y>110</Y>
+			<Label>
+				<X>15</X>
+				<Y>0</Y>
+			</Label>
+			<PublicFlag>false</PublicFlag>
+			<PresentationFlag>true</PresentationFlag>
+			<ShowLabel>true</ShowLabel>
+			<HandleReceiveInConnections>false</HandleReceiveInConnections>
+			<AgentLinkType>COLLECTION_OF_LINKS</AgentLinkType>
+			<AgentLinkBidirectional>true</AgentLinkBidirectional>
+			<MessageType>Object</MessageType>
+			<StatechartReference>
+				<PackageName>uav_sar</PackageName>
+				<ClassName>UAV</ClassName>
+				<ItemName>Init</ItemName>
+			</StatechartReference>
+			<LineStyle>SOLID</LineStyle>
+			<LineWidth>1</LineWidth>
+			<LineColor>-16777216</LineColor>
+			<LineZOrder>UNDER_AGENTS</LineZOrder>
+			<LineArrow>NONE</LineArrow>
+			<LineArrowPosition>END</LineArrowPosition>
+		</AgentLink>
+	</AgentLinks>
+	<Presentation>
+		<Level>
+			<Id>1776879532573</Id>
+			<Name><![CDATA[level]]></Name>
+			<X>0</X>
+			<Y>0</Y>
+			<Label>
+				<X>10</X>
+				<Y>0</Y>
+			</Label>
+			<PublicFlag>true</PublicFlag>
+			<PresentationFlag>true</PresentationFlag>
+			<ShowLabel>false</ShowLabel>
+			<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+			<Z>0</Z>
+			<LevelVisibility>DIM_NON_CURRENT</LevelVisibility>
+			<Presentation xmlns:al="http://anylogic.com"/>
+		</Level>
+	</Presentation>
+</ActiveObjectClass>
