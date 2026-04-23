@@ -3,8 +3,8 @@
 	<Rectangle>
 		<Id>1776879887662</Id>
 		<Name><![CDATA[rectangle]]></Name>
-		<X>50</X>
-		<Y>50</Y>
+		<X>150</X>
+		<Y>150</Y>
 		<Label>
 			<X>10</X>
 			<Y>10</Y>
@@ -20,8 +20,8 @@
 		<LineColor>-16777216</LineColor>
 		<LineMaterial>null</LineMaterial>
 		<LineStyle>SOLID</LineStyle>
-		<Width>900</Width>
-		<Height>500</Height>
+		<Width>800</Width>
+		<Height>400</Height>
 		<Rotation>0.0</Rotation>
 		<FillColor>-1</FillColor>
 		<FillMaterial>null</FillMaterial>
@@ -29,8 +29,8 @@
 	<Rectangle>
 		<Id>1776879931419</Id>
 		<Name><![CDATA[rectangle1]]></Name>
-		<X>100</X>
-		<Y>100</Y>
+		<X>200</X>
+		<Y>200</Y>
 		<Label>
 			<X>10</X>
 			<Y>10</Y>
@@ -46,8 +46,8 @@
 		<LineColor>-65536</LineColor>
 		<LineMaterial>null</LineMaterial>
 		<LineStyle>DASHED</LineStyle>
-		<Width>800</Width>
-		<Height>400</Height>
+		<Width>700</Width>
+		<Height>300</Height>
 		<Rotation>0.0</Rotation>
 		<FillColor>-1</FillColor>
 		<FillMaterial>null</FillMaterial>
