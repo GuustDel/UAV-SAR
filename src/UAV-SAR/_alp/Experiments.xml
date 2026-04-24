@@ -7,7 +7,7 @@
 		<MaximumMemory>512</MaximumMemory>
 		<RandomNumberGenerationType>fixedSeed</RandomNumberGenerationType>
 		<CustomGeneratorCode>new Random()</CustomGeneratorCode>
-		<SeedValue>1</SeedValue>
+		<SeedValue>500000</SeedValue>
 		<SelectionModeForSimultaneousEvents>LIFO</SelectionModeForSimultaneousEvents>
 		<VmArgs/>
 		<LoadRootFromSnapshot>false</LoadRootFromSnapshot>

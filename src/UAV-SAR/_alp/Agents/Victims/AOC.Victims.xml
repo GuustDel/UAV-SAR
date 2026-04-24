@@ -86,7 +86,7 @@
 		<Length>100</Length>
 		<Rotation>0</Rotation>
 		<ScaleType>BASED_ON_LENGTH</ScaleType>
-		<ModelLength>1</ModelLength>
+		<ModelLength>0.5</ModelLength>
 		<LengthUnits>METER</LengthUnits>
 		<Scale>10</Scale>
 		<InheritedFromParentAgentType>true</InheritedFromParentAgentType>
@@ -120,7 +120,7 @@
 	</AgentLinks>
 	<ContainerLinks>
 		<ContainerLink>
-			<Id>1777022379700</Id>
+			<Id>1777048160033</Id>
 			<Name><![CDATA[main]]></Name>
 			<X>50</X>
 			<Y>-100</Y>

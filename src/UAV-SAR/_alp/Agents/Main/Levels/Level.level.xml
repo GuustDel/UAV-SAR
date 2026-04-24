@@ -151,7 +151,7 @@
 		<Rotation>0.0</Rotation>
 	</RectangleNode>
 	<EmbeddedObjectPresentation>
-		<Id>1777022379696</Id>
+		<Id>1777048160020</Id>
 		<Name><![CDATA[victims_presentation]]></Name>
 		<X>0</X>
 		<Y>0</Y>
@@ -166,7 +166,6 @@
 		<EmbeddedIcon>false</EmbeddedIcon>
 		<Z>0</Z>
 		<Rotation>0.0</Rotation>
-		<RotationCode>-PI + getDefaultRandomGenerator().nextDouble()*2*PI</RotationCode>
 		<ScaleType>AUTOMATICALLY_CALCULATED</ScaleType>
 		<GISScaleForRealEmbeddedObjectPresentationSize>1000</GISScaleForRealEmbeddedObjectPresentationSize>
 		<GISScaleForFixedEmbeddedObjectPresentationSize>1000000000</GISScaleForFixedEmbeddedObjectPresentationSize>

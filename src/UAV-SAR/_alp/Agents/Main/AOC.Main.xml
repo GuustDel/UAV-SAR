@@ -2,6 +2,7 @@
 <ActiveObjectClass>
 	<Id>1776879373659</Id>
 	<Name><![CDATA[Main]]></Name>
+	<StartupCode><![CDATA[fnPlaceVictimsGMM();]]></StartupCode>
 	<Generic>false</Generic>
 	<GenericParameter>
 		<Id>1776879373664</Id>
@@ -93,6 +94,8 @@
 	</ScaleRuler>
 	<CurrentLevel>1776879373665</CurrentLevel>
 	<ConnectionsId>1776879373660</ConnectionsId>
+	<Variables xmlns:al="http://anylogic.com"/>
+	<Functions xmlns:al="http://anylogic.com"/>
 	<AgentLinks>
 		<AgentLink>
 			<Id>1776879373660</Id>

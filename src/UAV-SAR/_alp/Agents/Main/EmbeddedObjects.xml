@@ -51,18 +51,18 @@
 		<QuantityColumn/>
 	</EmbeddedObject>
 	<EmbeddedObject>
-		<Id>1777022376880</Id>
+		<Id>1777048155073</Id>
 		<Name><![CDATA[victims]]></Name>
 		<X>160</X>
 		<Y>20</Y>
 		<Label>
-			<X>15</X>
+			<X>10</X>
 			<Y>0</Y>
 		</Label>
 		<PublicFlag>false</PublicFlag>
 		<PresentationFlag>true</PresentationFlag>
 		<ShowLabel>true</ShowLabel>
-		<PresentationId>1777022379696</PresentationId>
+		<PresentationId>1777048160020</PresentationId>
 		<ActiveObjectClass>
 			<PackageName>uav_sar</PackageName>
 			<ClassName>Victims</ClassName>
@@ -81,10 +81,6 @@
 		</Replication>
 		<CollectionType>ARRAY_LIST_BASED</CollectionType>
 		<InEnvironment>true</InEnvironment>
-		<InitialSpeedCode Class="CodeUnitValue">
-			<Code><![CDATA[0]]></Code>
-			<Unit Class="SpeedUnits">MPS</Unit>
-		</InitialSpeedCode>
 		<InitialLocationType>NODE</InitialLocationType>
 		<ColumnCode Class="CodeValue">
 			<Code><![CDATA[0]]></Code>
@@ -98,7 +94,7 @@
 		</LocationNameCode>
 		<InitializationType>SPECIFIED_NUMBER</InitializationType>
 		<InitializationDatabaseTableQuery>
-			<Id>1777022376878</Id>
+			<Id>1777048155071</Id>
 			<TableReference/>
 		</InitializationDatabaseTableQuery>
 		<InitializationDatabaseType>ONE_AGENT_PER_DATABASE_RECORD</InitializationDatabaseType>
