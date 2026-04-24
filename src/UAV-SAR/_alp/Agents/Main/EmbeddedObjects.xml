@@ -3,8 +3,8 @@
 	<EmbeddedObject>
 		<Id>1776961987920</Id>
 		<Name><![CDATA[uavs]]></Name>
-		<X>30</X>
-		<Y>110</Y>
+		<X>60</X>
+		<Y>20</Y>
 		<Label>
 			<X>10</X>
 			<Y>0</Y>
@@ -31,19 +31,74 @@
 		</Replication>
 		<CollectionType>ARRAY_LIST_BASED</CollectionType>
 		<InEnvironment>true</InEnvironment>
-		<InitialLocationType>XYZ</InitialLocationType>
+		<InitialLocationType>NODE</InitialLocationType>
 		<ColumnCode Class="CodeValue">
 			<Code><![CDATA[0]]></Code>
 		</ColumnCode>
 		<RowCode Class="CodeValue">
 			<Code><![CDATA[0]]></Code>
 		</RowCode>
+		<NodeCode>spaceRelease</NodeCode>
 		<LocationNameCode Class="CodeValue">
 			<Code><![CDATA[""]]></Code>
 		</LocationNameCode>
 		<InitializationType>SPECIFIED_NUMBER</InitializationType>
 		<InitializationDatabaseTableQuery>
 			<Id>1776961987918</Id>
+			<TableReference/>
+		</InitializationDatabaseTableQuery>
+		<InitializationDatabaseType>ONE_AGENT_PER_DATABASE_RECORD</InitializationDatabaseType>
+		<QuantityColumn/>
+	</EmbeddedObject>
+	<EmbeddedObject>
+		<Id>1777022376880</Id>
+		<Name><![CDATA[victims]]></Name>
+		<X>160</X>
+		<Y>20</Y>
+		<Label>
+			<X>15</X>
+			<Y>0</Y>
+		</Label>
+		<PublicFlag>false</PublicFlag>
+		<PresentationFlag>true</PresentationFlag>
+		<ShowLabel>true</ShowLabel>
+		<PresentationId>1777022379696</PresentationId>
+		<ActiveObjectClass>
+			<PackageName>uav_sar</PackageName>
+			<ClassName>Victims</ClassName>
+		</ActiveObjectClass>
+		<GenericParameterSubstitute>
+			<GenericParameterSubstituteReference>
+				<PackageName>uav_sar</PackageName>
+				<ClassName>Victims</ClassName>
+				<ItemName>1777022364716</ItemName>
+			</GenericParameterSubstituteReference>
+		</GenericParameterSubstitute>
+		<Parameters/>
+		<ReplicationFlag>true</ReplicationFlag>
+		<Replication Class="CodeValue">
+			<Code><![CDATA[10]]></Code>
+		</Replication>
+		<CollectionType>ARRAY_LIST_BASED</CollectionType>
+		<InEnvironment>true</InEnvironment>
+		<InitialSpeedCode Class="CodeUnitValue">
+			<Code><![CDATA[0]]></Code>
+			<Unit Class="SpeedUnits">MPS</Unit>
+		</InitialSpeedCode>
+		<InitialLocationType>NODE</InitialLocationType>
+		<ColumnCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</ColumnCode>
+		<RowCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</RowCode>
+		<NodeCode>spaceRelease</NodeCode>
+		<LocationNameCode Class="CodeValue">
+			<Code><![CDATA[""]]></Code>
+		</LocationNameCode>
+		<InitializationType>SPECIFIED_NUMBER</InitializationType>
+		<InitializationDatabaseTableQuery>
+			<Id>1777022376878</Id>
 			<TableReference/>
 		</InitializationDatabaseTableQuery>
 		<InitializationDatabaseType>ONE_AGENT_PER_DATABASE_RECORD</InitializationDatabaseType>
