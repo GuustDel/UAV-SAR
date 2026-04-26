@@ -2,6 +2,8 @@
 <ActiveObjectClass>
 	<Id>1776879532567</Id>
 	<Name><![CDATA[UAV]]></Name>
+	<StartupCode><![CDATA[setSpeed( Math.max( 0.1, varSpeed ) );
+fnMoveToRandomWaypoint();]]></StartupCode>
 	<Generic>false</Generic>
 	<GenericParameter>
 		<Id>1776879532572</Id>
@@ -94,6 +96,7 @@
 	<CurrentLevel>1776879532573</CurrentLevel>
 	<ConnectionsId>1776879532568</ConnectionsId>
 	<Variables xmlns:al="http://anylogic.com"/>
+	<Functions xmlns:al="http://anylogic.com"/>
 	<StatechartElements>
 		<StatechartElement Class="State" ParentState="ROOT_NODE">
 			<Id>1776879999910</Id>
@@ -161,7 +164,7 @@
 		</StatechartElement>
 		<StatechartElement Class="Transition" ParentState="ROOT_NODE">
 			<Id>1776880064943</Id>
-			<Name><![CDATA[transition]]></Name>
+			<Name><![CDATA[toExploitIfDetected]]></Name>
 			<X>570</X>
 			<Y>200</Y>
 			<Label>
@@ -187,7 +190,7 @@
 					<Code><![CDATA[1]]></Code>
 					<Unit Class="TimeUnits">SECOND</Unit>
 				</Timeout>
-				<Condition>true</Condition>
+				<Condition>(varBatteryLevel &gt; varReturnBatteryThreshold) &amp;&amp; (varTargetConfidence &gt;= varDetectionThreshold)</Condition>
 				<Rate Class="CodeUnitValue">
 					<Code><![CDATA[1]]></Code>
 					<Unit Class="RateUnits">PER_SECOND</Unit>
@@ -201,7 +204,7 @@
 		</StatechartElement>
 		<StatechartElement Class="Transition" ParentState="ROOT_NODE">
 			<Id>1776880073206</Id>
-			<Name><![CDATA[transition1]]></Name>
+			<Name><![CDATA[toExploreIfLowBatteryOrLostTarget]]></Name>
 			<X>670</X>
 			<Y>300</Y>
 			<Label>
@@ -227,7 +230,7 @@
 					<Code><![CDATA[1]]></Code>
 					<Unit Class="TimeUnits">SECOND</Unit>
 				</Timeout>
-				<Condition>true</Condition>
+				<Condition>(varBatteryLevel &lt;= varReturnBatteryThreshold) || (varTargetConfidence &lt; varDetectionThreshold)</Condition>
 				<Rate Class="CodeUnitValue">
 					<Code><![CDATA[1]]></Code>
 					<Unit Class="RateUnits">PER_SECOND</Unit>
