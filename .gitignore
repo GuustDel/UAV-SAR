@@ -1,0 +1,43 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# github folder
+.github/
+
+# Editor / IDE
+.vscode/
+.idea/
+*.iml
+
+# Python notebook/cache helpers (for analysis folder)
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Logs and temp
+*.log
+*.tmp
+*.bak
+*.swp
+
+# AnyLogic-generated / runtime outputs
+**/database/
+**/output/
+**/reports/
+**/logs/
+**/temp/
+**/tmp/
+
+# Build artifacts
+build/
+dist/
+out/
+
+# Local experiment data (keep schemas and examples in repo)
+data/runs/
+data/sweeps/
+
+# Temporary extracted/preview files used during analysis
+docs/*_page*.png
+docs/*.txt

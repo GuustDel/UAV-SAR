@@ -1,0 +1,46 @@
+{
+  "experiment_name": "baseline_uav_sar",
+  "seed": 20260426,
+  "runs_per_config": 30,
+  "world": {
+    "width": 800,
+    "height": 400,
+    "bounds_mode": "boxed_area"
+  },
+  "uavs": {
+    "count": 10,
+    "init_mode": "random_rejection",
+    "speed": 8.0,
+    "battery_start": 100.0,
+    "return_threshold": 20.0,
+    "move_energy_cost": 0.02,
+    "scan_energy_cost": 0.01
+  },
+  "victims": {
+    "count": 10,
+    "distribution": "gmm",
+    "n_clusters": 3,
+    "weights": [0.2, 0.5, 0.3],
+    "std_xy": [[40, 40], [70, 70], [30, 30]],
+    "margin": 30.0,
+    "time_dynamic": false
+  },
+  "behaviour": {
+    "policy": "greedy_nearest",
+    "belief_lifespan_steps": 20,
+    "active_perception_enabled": true,
+    "local_comm_radius": 60.0
+  },
+  "sensor": {
+    "model": "probabilistic",
+    "p0": 0.95,
+    "alpha": 0.03,
+    "deterministic_radius": 40.0
+  },
+  "logging": {
+    "step_interval": 1,
+    "write_per_run_csv": true,
+    "write_aggregate_csv": true,
+    "output_dir": "data"
+  }
+}

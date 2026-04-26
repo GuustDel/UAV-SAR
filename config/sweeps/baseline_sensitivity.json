@@ -1,0 +1,30 @@
+{
+  "experiment_name": "baseline_sensitivity_sweep",
+  "seed": 20260426,
+  "runs_per_config": 30,
+  "vary": {
+    "behaviour.policy": ["greedy_nearest", "lawnmower", "partitioning"],
+    "victims.distribution": ["uniform", "gmm"],
+    "sensor.model": ["probabilistic", "deterministic"],
+    "victims.gmm_profile": ["tight_3", "wide_3"]
+  },
+  "fixed": {
+    "world.width": 800,
+    "world.height": 400,
+    "uavs.count": 10,
+    "victims.count": 10,
+    "sensor.p0": 0.95,
+    "sensor.alpha": 0.03,
+    "sensor.deterministic_radius": 40.0,
+    "victims.n_clusters": 3,
+    "victims.weights": [0.2, 0.5, 0.3],
+    "victims.gmm_profiles": {
+      "tight_3": [[30, 30], [30, 30], [30, 30]],
+      "wide_3": [[70, 70], [70, 70], [70, 70]]
+    }
+  },
+  "notes": [
+    "When victims.distribution == uniform, victims.gmm_profile is ignored.",
+    "n_clusters and weights stay fixed in this baseline sweep to avoid confounding factors."
+  ]
+}
