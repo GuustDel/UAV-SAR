@@ -3,7 +3,7 @@
 Thumbs.db
 
 # github folder
-.github/
+.github/*-instructions.md
 
 # Editor / IDE
 .vscode/
@@ -33,6 +33,9 @@ __pycache__/
 build/
 dist/
 out/
+
+# Local AnyLogic backup copy
+src/UAV-SAR/UAV-SAR.original.alp
 
 # Local experiment data (keep schemas and examples in repo)
 data/runs/
