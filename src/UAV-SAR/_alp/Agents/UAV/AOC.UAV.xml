@@ -96,7 +96,6 @@ fnMoveToRandomWaypoint();]]></StartupCode>
 	<CurrentLevel>1776879532573</CurrentLevel>
 	<ConnectionsId>1776879532568</ConnectionsId>
 	<Variables xmlns:al="http://anylogic.com"/>
-	<Functions xmlns:al="http://anylogic.com"/>
 	<StatechartElements>
 		<StatechartElement Class="State" ParentState="ROOT_NODE">
 			<Id>1776879999910</Id>
@@ -319,6 +318,7 @@ fnMoveToRandomWaypoint();]]></StartupCode>
 			<Properties Target="1776880244591"/>
 		</StatechartElement>
 	</StatechartElements>
+	<Functions xmlns:al="http://anylogic.com"/>
 	<AgentLinks>
 		<AgentLink>
 			<Id>1776879532568</Id>
