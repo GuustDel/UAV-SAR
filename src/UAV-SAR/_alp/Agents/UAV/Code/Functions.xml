@@ -65,7 +65,7 @@
 		<Body xmlns:al="http://anylogic.com"/>
 	</Function>
 	<Function AccessType="default" StaticFunction="false">
-		<ReturnModificator>OTHER</ReturnModificator>
+		<ReturnModificator>VOID</ReturnModificator>
 		<ReturnType>int</ReturnType>
 		<Id>1780000003010</Id>
 		<Name><![CDATA[fnCellIndex]]></Name>
@@ -81,7 +81,7 @@
 		<Body xmlns:al="http://anylogic.com"/>
 	</Function>
 	<Function AccessType="default" StaticFunction="false">
-		<ReturnModificator>OTHER</ReturnModificator>
+		<ReturnModificator>VOID</ReturnModificator>
 		<ReturnType>double</ReturnType>
 		<Id>1780000003020</Id>
 		<Name><![CDATA[fnCellFreshness]]></Name>
