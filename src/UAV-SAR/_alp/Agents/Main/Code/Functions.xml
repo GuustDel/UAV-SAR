@@ -17,7 +17,7 @@
 		<Body xmlns:al="http://anylogic.com"/>
 	</Function>
 	<Function AccessType="public" StaticFunction="false">
-		<ReturnModificator>OTHER</ReturnModificator>
+		<ReturnModificator>VOID</ReturnModificator>
 		<ReturnType>double</ReturnType>
 		<Id>1780000004001</Id>
 		<Name><![CDATA[fnGetPheromone]]></Name>
