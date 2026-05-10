@@ -1,3 +1,30 @@
+# UAV-SAR — Recent progress and next steps
+
+Summary (commit c802a72):
+- Fixed UAV `Exploit` arrival behavior so agents re-sense and resume movement (prevents UAVs standing on victims).
+- Added periodic sensing inside `Exploit` and visible UAV instance label in the UAV presentation.
+
+Files changed (recent):
+- `src/UAV-SAR/_alp/Agents/UAV/AOC.UAV.xml` — statechart/sensing changes
+- `src/UAV-SAR/_alp/Agents/UAV/Levels/Level.level.xml` — UAV label and presentation tweaks
+- `src/UAV-SAR/_alp/Agents/Main/EmbeddedObjects.xml` — population/replication adjustments
+- `src/UAV-SAR/_alp/ModelResources.xml`
+
+How to test locally
+1. Close AnyLogic and delete the workspace cache if needed: `C:\Users\<you>\\.AnyLogicPLE\\Workspace8.*`.
+2. Open the model in AnyLogic and build. Run a short simulation (2–5 minutes) and observe a few UAVs: confirm they no longer idle on top of victims and labels are visible.
+3. Pause and inspect the following agent variables for a paused UAV: `varBatteryLevel`, `varMovingToCharger`, `varTargetConfidence`, `varVictimsConfirmed` and `varPheromoneGrid` sample cells.
+
+Outstanding items / next work (priorities)
+1. Investigate UAV charger behavior and battery thresholds (UAVs going to charger corners).
+2. Verify and fix bottom UI panels (`Pheromone` and `Victim Placement`) bindings so values display.
+3. Increase victim replication and run stress tests to confirm multi-UAV behavior.
+4. Tune ACO / pheromone parameters if exploration/exploitation balance is off.
+5. (Optional) Replace immediate resume with an Event-based short pause if UX requires a visible inspection delay.
+
+Notes for reviewers
+- Commit to review: c802a72 on branch `feature/fix-uav-victim-detection-logic`.
+
 # UAV-SAR: Multi-Agent Search and Rescue System
 
 ## Overview
