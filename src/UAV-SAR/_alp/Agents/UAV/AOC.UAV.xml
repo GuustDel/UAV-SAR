@@ -33,6 +33,15 @@
     moveTo(varCandX[varChosenIdx], varCandY[varChosenIdx], varSpeed);
 } else if (varMovingToCharger) {
     varMovingToCharger = false;
+} else {
+    // Arrived while Exploit: re-sense, confirm victim, then move away immediately
+    fnSenseNow();
+    fnSenseNowGrid();
+    if (varTargetConfidence &gt;= varDetectionThreshold) varVictimsConfirmed = varVictimsConfirmed + 1;
+    // pick a new waypoint and move away so UAV doesn't idle on top of the victim
+    fnPickWaypoint();
+    // add a tiny offset to avoid zero-distance move
+    moveTo(varCandX[varChosenIdx] + 0.1, varCandY[varChosenIdx] + 0.1, varSpeed);
 }</OnArrival>
 		<PhysicalLength Class="CodeUnitValue">
 			<Code><![CDATA[1]]></Code>
@@ -456,7 +465,15 @@ batteryText.setText(String.format("%.0f%%", varBatteryLevel));</Action>
 			</Points>
 			<IconOffset>20.0</IconOffset>
 			<Properties Source="1776880023728" Target="1776880023728" Trigger="rate">
-				<Action>varBatteryLevel = Math.max(0, varBatteryLevel - varBatteryDepletionRate * 0.5);
+				<Action>/* sensing and maintain exploit movement */
+fnSenseNow();
+fnSenseNowGrid();
+if (varTargetConfidence &gt;= varDetectionThreshold) {
+	setSpeed(varSpeed);
+	moveTo(varTargetX, varTargetY, varSpeed);
+}
+
+varBatteryLevel = Math.max(0, varBatteryLevel - varBatteryDepletionRate * 0.5);
 batteryText.setText(String.format("%.0f%%", varBatteryLevel));</Action>
 				<Timeout Class="CodeUnitValue">
 					<Code><![CDATA[1]]></Code>
