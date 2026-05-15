@@ -3,8 +3,8 @@
 	<Event>
 		<Id>1778310007029</Id>
 		<Name><![CDATA[eventDrawPheromones]]></Name>
-		<X>510</X>
-		<Y>750</Y>
+		<X>280</X>
+		<Y>760</Y>
 		<Label>
 			<X>10</X>
 			<Y>0</Y>
@@ -30,6 +30,42 @@
 			</OccurrenceTime>
 			<RecurrenceCode Class="CodeUnitValue">
 				<Code><![CDATA[0.05]]></Code>
+				<Unit Class="TimeUnits">SECOND</Unit>
+			</RecurrenceCode>
+			<Condition>false</Condition>
+		</Properties>
+		<Action xmlns:al="http://anylogic.com"/>
+	</Event>
+	<Event>
+		<Id>1778824420442</Id>
+		<Name><![CDATA[eventSafetyStop]]></Name>
+		<X>280</X>
+		<Y>780</Y>
+		<Label>
+			<X>10</X>
+			<Y>0</Y>
+		</Label>
+		<PublicFlag>false</PublicFlag>
+		<PresentationFlag>true</PresentationFlag>
+		<ShowLabel>true</ShowLabel>
+		<Properties TriggerType="timeout" Mode="occuresOnce">
+			<Timeout Class="CodeUnitValue">
+				<Code><![CDATA[1]]></Code>
+				<Unit Class="TimeUnits">SECOND</Unit>
+			</Timeout>
+			<Rate Class="CodeUnitValue">
+				<Code><![CDATA[1]]></Code>
+				<Unit Class="RateUnits">PER_SECOND</Unit>
+			</Rate>
+			<Id>1778824420440</Id>
+			<OccurrenceAtTime>true</OccurrenceAtTime>
+			<OccurrenceDate>1778832000000</OccurrenceDate>
+			<OccurrenceTime Class="CodeUnitValue">
+				<Code><![CDATA[varMaxSimTime]]></Code>
+				<Unit Class="TimeUnits">SECOND</Unit>
+			</OccurrenceTime>
+			<RecurrenceCode Class="CodeUnitValue">
+				<Code><![CDATA[1]]></Code>
 				<Unit Class="TimeUnits">SECOND</Unit>
 			</RecurrenceCode>
 			<Condition>false</Condition>

@@ -41,11 +41,23 @@ for (UAV u : uavs) {
     }
 }
 
-for (int i = 0; i < varFoundVictimCount; i++) {
-    double mx = varFoundVictimX[i] - ox;
-    double my = varFoundVictimY[i] - oy;
+for (Victims v : victims) {
+    if (!v.varIsFound) continue;
+    double mx = v.getX() - ox;
+    double my = v.getY() - oy;
     pheromoneCanvas.fillCircle(mx, my, 12, new java.awt.Color(255, 0, 0, 180));
     pheromoneCanvas.fillCircle(mx, my, 5,  new java.awt.Color(255, 255, 255, 255));
+}
+/*ALCODEEND*/}
+
+void eventSafetyStop()
+{/*ALCODESTART::1778824420442*/
+if (!varAllVictimsFound) {
+    varConvergenceTime = Double.NaN;
+    traceln("TIMEOUT not all victims found by t=" + time()
+        + " found=" + varFoundVictimCount + "/" + victims.size());
+    fnLogRunSummary();
+    finishSimulation();
 }
 /*ALCODEEND*/}
 

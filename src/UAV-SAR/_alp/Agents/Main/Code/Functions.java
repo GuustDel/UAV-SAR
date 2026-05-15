@@ -106,21 +106,42 @@ varPheromoneGrid[idx] = current + amount;
 varPheromoneTime[idx] = time();
 /*ALCODEEND*/}
 
-void fnMarkVictimFound(double x,double y)
+void fnMarkVictimFound(double x,double y,int uavIndex)
 {/*ALCODESTART::1778423584943*/
-// Duplicate check
-for (int i = 0; i < varFoundVictimCount; i++) {
-    double dx = varFoundVictimX[i] - x;
-    double dy = varFoundVictimY[i] - y;
+// Skip if we already tagged a victim near this location
+for (Victims v : victims) {
+    if (!v.varIsFound) continue;
+    double dx = v.getX() - x;
+    double dy = v.getY() - y;
     if (Math.sqrt(dx*dx + dy*dy) < 15) return;
 }
-// Store location
-if (varFoundVictimCount < varFoundVictimX.length) {
-    varFoundVictimX[varFoundVictimCount] = x;
-    varFoundVictimY[varFoundVictimCount] = y;
-    varFoundVictimCount++;
+
+// Find the nearest unfound victim to tag
+Victims found = null;
+double bestDist = Double.MAX_VALUE;
+for (Victims v : victims) {
+    if (v.varIsFound) continue;
+    double dx = v.getX() - x;
+    double dy = v.getY() - y;
+    double dist = Math.sqrt(dx*dx + dy*dy);
+    if (dist < bestDist) {
+        bestDist = dist;
+        found = v;
+    }
 }
-// Reset pheromone within 250 units to attract UAVs back to this area
+if (found != null) {
+    found.varIsFound = true;
+    found.varFoundByUavIndex = uavIndex;
+    found.varFoundAtTime = time();
+    varFoundVictimCount++;
+    traceln("VICTIM_FOUND victimIdx=" + found.getIndex()
+        + " uavIdx=" + uavIndex
+        + " time=" + time()
+        + " x=" + found.getX() + " y=" + found.getY());
+    fnLogVictimFound(found.getIndex(), uavIndex, time(), found.getX(), found.getY());
+}
+
+// Reset pheromone in radius around found victim
 double radius = 175;
 for (int row = 0; row < varGridRows; row++) {
     for (int col = 0; col < varGridCols; col++) {
@@ -133,6 +154,45 @@ for (int row = 0; row < varGridRows; row++) {
             varPheromoneTime[idx] = time();
         }
     }
+}
+
+// Convergence: all victims found
+if (!varAllVictimsFound && varFoundVictimCount >= victims.size()) {
+    varAllVictimsFound = true;
+    varConvergenceTime = time();
+    traceln("CONVERGENCE allVictimsFound=true convergenceTime=" + varConvergenceTime);
+    fnLogRunSummary();
+    finishSimulation();
+}
+/*ALCODEEND*/}
+
+double fnLogVictimFound(int victimIdx,int uavIdx,double foundTime,double x,double y)
+{/*ALCODESTART::1778831293480*/
+try {
+    String expDir = System.getProperty("uavsar.exp.dir", "experiments");
+    java.io.File f = new java.io.File(expDir + "/victim_log.csv");
+    java.io.FileWriter fw = new java.io.FileWriter(f, true);
+    fw.write(varSeed + "," + varSensorRange + "," + varAcoCandidateCount + ","
+        + varAcoStepLength + "," + varAcoAlpha + "," + varAcoBeta + ","
+        + victimIdx + "," + uavIdx + "," + foundTime + "," + x + "," + y + "\n");
+    fw.close();
+} catch (Exception e) {
+    traceln("victim_log write error: " + e.getMessage());
+}
+/*ALCODEEND*/}
+
+double fnLogRunSummary()
+{/*ALCODESTART::1778831401084*/
+try {
+    String expDir = System.getProperty("uavsar.exp.dir", "experiments");
+    java.io.File f = new java.io.File(expDir + "/run_summary.csv");
+    java.io.FileWriter fw = new java.io.FileWriter(f, true);
+    fw.write(varSeed + "," + varSensorRange + "," + varAcoCandidateCount + ","
+        + varAcoStepLength + "," + varAcoAlpha + "," + varAcoBeta + ","
+        + varAllVictimsFound + "," + varConvergenceTime + "," + varFoundVictimCount + "\n");
+    fw.close();
+} catch (Exception e) {
+    traceln("run_summary write error: " + e.getMessage());
 }
 /*ALCODEEND*/}
 

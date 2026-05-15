@@ -59,6 +59,7 @@ double bestY = -1;
 
 if (main != null) {
     for (Victims v : main.victims) {
+        if (v.varIsFound) continue;
         double dx = v.getX() - getX();
         double dy = v.getY() - getY();
         double dist = Math.sqrt(dx*dx + dy*dy);
@@ -145,6 +146,7 @@ for (int row = rowMin; row <= rowMax; row++) {
 
         double bestConf = 0;
         for (Victims v : main.victims) {
+            if (v.varIsFound) continue;
             double vdx = v.getX() - cellCx;
             double vdy = v.getY() - cellCy;
             if (Math.sqrt(vdx*vdx + vdy*vdy) <= main.varGridCellSize * 0.7) {
@@ -300,7 +302,7 @@ double function()
 double fnConfirmVictim()
 {/*ALCODESTART::1778423980875*/
 if (varTargetX >= 0 && varTargetY >= 0) {
-    main.fnMarkVictimFound(varTargetX, varTargetY);
+    main.fnMarkVictimFound(varTargetX, varTargetY, getIndex());
     varVictimsConfirmed++;
     varLocalSearchMode = true;
     varLocalSearchCenterX = varTargetX;

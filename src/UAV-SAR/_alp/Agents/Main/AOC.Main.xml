@@ -2,10 +2,21 @@
 <ActiveObjectClass>
 	<Id>1776879373659</Id>
 	<Name><![CDATA[Main]]></Name>
-	<StartupCode><![CDATA[fnPlaceVictimsGMM();
+	<StartupCode><![CDATA[// Seed first so all randomness in this run is reproducible
+getDefaultRandomGenerator().setSeed(varSeed);
+
+// Push experiment parameters down to every UAV
 for (UAV u : uavs) {
-	u.varBatteryLevel = uniform(20, 80);
-}]]></StartupCode>
+    u.varSensorRange       = varSensorRange;
+    u.varAcoCandidateCount = varAcoCandidateCount;
+    u.varAcoStepLength     = varAcoStepLength;
+    u.varAcoAlpha          = varAcoAlpha;
+    u.varAcoBeta           = varAcoBeta;
+    u.varBatteryLevel      = uniform(20, 80);
+}
+
+// Place victims after seed is set so placement is reproducible
+fnPlaceVictimsGMM();]]></StartupCode>
 	<Generic>false</Generic>
 	<GenericParameter>
 		<Id>1776879373664</Id>
