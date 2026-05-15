@@ -322,8 +322,8 @@
 	<Text>
 		<Id>1778419425693</Id>
 		<Name><![CDATA[uavIdText]]></Name>
-		<X>5</X>
-		<Y>-45</Y>
+		<X>-70</X>
+		<Y>0</Y>
 		<Label>
 			<X>0</X>
 			<Y>-10</Y>
@@ -335,7 +335,7 @@
 		<EmbeddedIcon>false</EmbeddedIcon>
 		<Z>0</Z>
 		<Rotation>90.0</Rotation>
-		<Color>-10496</Color>
+		<Color>-14774017</Color>
 		<Text/>
 		<TextCode>"UAV" + (getIndex() + 1)</TextCode>
 		<Font>
@@ -343,6 +343,6 @@
 			<Size>12</Size>
 			<Style>0</Style>
 		</Font>
-		<Alignment>LEFT</Alignment>
+		<Alignment>CENTER</Alignment>
 	</Text>
 </Presentation>

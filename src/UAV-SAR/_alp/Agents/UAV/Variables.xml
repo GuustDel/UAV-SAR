@@ -840,7 +840,7 @@
 		<Id>1778427052177</Id>
 		<Name><![CDATA[varLocalSearchMode]]></Name>
 		<X>60</X>
-		<Y>1110</Y>
+		<Y>1310</Y>
 		<Label>
 			<X>10</X>
 			<Y>0</Y>
@@ -862,7 +862,7 @@
 		<Id>1778427086739</Id>
 		<Name><![CDATA[varLocalSearchCenterX]]></Name>
 		<X>60</X>
-		<Y>1110</Y>
+		<Y>1290</Y>
 		<Label>
 			<X>10</X>
 			<Y>0</Y>
@@ -884,7 +884,7 @@
 		<Id>1778427112959</Id>
 		<Name><![CDATA[varLocalSearchCenterY]]></Name>
 		<X>60</X>
-		<Y>1110</Y>
+		<Y>1270</Y>
 		<Label>
 			<X>10</X>
 			<Y>0</Y>
@@ -906,7 +906,7 @@
 		<Id>1778427132577</Id>
 		<Name><![CDATA[varLocalSearchRadius]]></Name>
 		<X>60</X>
-		<Y>1110</Y>
+		<Y>1250</Y>
 		<Label>
 			<X>10</X>
 			<Y>0</Y>
@@ -928,7 +928,7 @@
 		<Id>1778427163355</Id>
 		<Name><![CDATA[varLocalSearchStepsLeft]]></Name>
 		<X>60</X>
-		<Y>1110</Y>
+		<Y>1230</Y>
 		<Label>
 			<X>10</X>
 			<Y>0</Y>
@@ -950,7 +950,7 @@
 		<Id>1778450111296</Id>
 		<Name><![CDATA[varLastCriticalX]]></Name>
 		<X>60</X>
-		<Y>1110</Y>
+		<Y>1210</Y>
 		<Label>
 			<X>10</X>
 			<Y>0</Y>
@@ -972,7 +972,7 @@
 		<Id>1778450134495</Id>
 		<Name><![CDATA[varLastCriticalY]]></Name>
 		<X>60</X>
-		<Y>1110</Y>
+		<Y>1190</Y>
 		<Label>
 			<X>10</X>
 			<Y>0</Y>
@@ -994,7 +994,7 @@
 		<Id>1778450144227</Id>
 		<Name><![CDATA[varReturnToLastLocation]]></Name>
 		<X>60</X>
-		<Y>1110</Y>
+		<Y>1170</Y>
 		<Label>
 			<X>10</X>
 			<Y>0</Y>
