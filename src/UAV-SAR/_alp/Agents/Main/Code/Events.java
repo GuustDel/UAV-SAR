@@ -5,6 +5,7 @@ pheromoneCanvas.clear();
 double ox = 50;
 double oy = 50;
 
+// 1. Pheromone grid tiles
 for (int row = 0; row < varGridRows; row++) {
     for (int col = 0; col < varGridCols; col++) {
         int idx = row * varGridCols + col;
@@ -27,6 +28,44 @@ for (int row = 0; row < varGridRows; row++) {
     }
 }
 
+// 2. FOV cones — drawn in Main's coordinate space, scale matches sensing exactly
+for (UAV u : uavs) {
+    if (u.varMovingToCharger || u.varCharging) continue;
+ 
+    double cx          = u.getX() - ox;
+    double cy          = u.getY() - oy;
+    double centerAngle = u.getRotation();
+    double halfRad     = Math.toRadians(u.varFovHalfAngleDeg);
+    double rMax        = u.varSensorRange;
+
+    boolean detected = u.varTargetConfidence >= u.varDetectionThreshold;
+    java.awt.Color fill = detected
+        ? new java.awt.Color(255, 140, 0, 60)
+        : new java.awt.Color(100, 200, 255, 50);
+    java.awt.Color outline = detected
+        ? new java.awt.Color(255, 100, 0, 180)
+        : new java.awt.Color(50, 150, 255, 160);
+
+    // Fill slice
+    for (double a = centerAngle - halfRad; a <= centerAngle + halfRad; a += Math.toRadians(2)) {
+        for (double r = 0; r <= rMax; r += 2) {
+            pheromoneCanvas.fillCircle(cx + r * Math.cos(a), cy + r * Math.sin(a), 2, fill);
+        }
+    }
+    // Boundary rays
+    for (double r = 0; r <= rMax; r += 2) {
+        pheromoneCanvas.fillCircle(cx + r * Math.cos(centerAngle - halfRad),
+                                   cy + r * Math.sin(centerAngle - halfRad), 2, outline);
+        pheromoneCanvas.fillCircle(cx + r * Math.cos(centerAngle + halfRad),
+                                   cy + r * Math.sin(centerAngle + halfRad), 2, outline);
+    }
+    // Outer arc
+    for (double a = centerAngle - halfRad; a <= centerAngle + halfRad; a += Math.toRadians(1)) {
+        pheromoneCanvas.fillCircle(cx + rMax * Math.cos(a), cy + rMax * Math.sin(a), 2, outline);
+    }
+}
+
+// 3. Candidate waypoints
 for (UAV u : uavs) {
     if (u.varMovingToCharger || u.varCharging) continue;
     int n = Math.min(u.varAcoCandidateCount, u.varCandX.length);
@@ -41,6 +80,7 @@ for (UAV u : uavs) {
     }
 }
 
+// 4. Found victim markers
 for (Victims v : victims) {
     if (!v.varIsFound) continue;
     double mx = v.getX() - ox;
