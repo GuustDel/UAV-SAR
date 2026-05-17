@@ -34,7 +34,7 @@ This project implements an agent-based UAV search and rescue (SAR) model.
 Target architecture direction:
 - BDI-style high-level state behavior
 - ACO-inspired local coordination and movement selection
-- TAPB-style belief freshness checks
+- TAPB-style belief freshness checks (Timed Active Perception Belief-TAPB)
 
 Current objective is a stable, reproducible baseline that can be extended into full BDI+ACO+TAPB behavior and sensitivity experiments.
 
@@ -139,7 +139,7 @@ You run the experiments in Anylogic (this will generate verbose log files) and l
 1. First decide which variables you want to test in the experiment (the experiment is currently set up to test varSensorRange, varAcoCandidateCount, varAcoStepLength, varAcoALpha, varAcoBeta, varSeed). 
 2. Adding parameters is easy, in the main window, you add a parameter (not variable) for the variable you want to test. most likely this will be a variable in the uav agent, but the parametersweep experiment can only vary parameters in main. so we must define them in main and then manually sync them to uav later (see 3.)
 3. In onStartup in the main agent, sync the parameter value you defined to the right variable in the uav agent:
-''' python
+```java
 for (UAV u : uavs) {
     u.varSensorRange       = varSensorRange;
     u.varAcoCandidateCount = varAcoCandidateCount;
@@ -148,15 +148,15 @@ for (UAV u : uavs) {
     u.varAcoBeta           = varAcoBeta;
     u.varBatteryLevel      = uniform(20, 80);
 }
-''' 
+```
 4. In the project side bar, double click "ExpParamSweep: Main" and go to the parameter section, here you define which parameter is part of the experiment, what is the minimum value, maximum value and the step size. the experiment will do a grid search through this parameter space. so keep the step size reasonably large so that the search space doesn't blow up.
 5. right click the "ExpParamSweep: Main" in the left side bar and click run. this will generate the csv log files. 
-6. once the experiment is running, it will do all the rest for you. it will automatically create a new directory under src/UAV-SAR/experiments/ with the number of the experiment (it will auto increment). each experiment gets two files in their folder. e.g. for experiment 1 you have src/UAV-SAR/experiments/1/{run_summary.csv, victim_log.csv}. run_summary.csv will get one line per run, that line will include all the parameter values, seed number, convergence time, ... the victim_log.csv file is more detailed and will have one line for every victim that is found in each run.
-7. to analyse these results you run 
-''' python
-python analyse.py --exp 1
-''' 
-where 1 is the name of the folder of the experiment. this command will create a directory analyse inside the experiment directory and place all the summary csv files and plots in there.
+6. once the experiment is running, it will do all the rest for you. it will automatically create a new directory under src/UAV-SAR/experiments/ with a digits-only timestamp (for example 20260517164951732). each experiment gets two files in their folder: run_summary.csv and victim_log.csv. run_summary.csv will get one line per run, that line will include all the parameter values, seed number, convergence time, ... the victim_log.csv file is more detailed and will have one line for every victim that is found in each run.
+7. to analyse these results you run:
+```bash
+python analyse.py --base "src/UAV-SAR/experiments" --exp 20260517164951732
+```
+this command will create an analyses folder inside the experiment directory and place all the summary csv files and plots in there. you can also omit --exp to analyze the latest timestamped folder.
 8. to generate other plots or summaries you will have to change the analyse.py file
 9. if you want to sweep a variable from the main agent, simply convert it to a parameter and add it to the experiment like you did the other parameters. In anylogic, only parameters can be set from outside the model. you could also leave the variable and create a parameter with the same name and manually sync them in startup code if you prefer it that way.
 

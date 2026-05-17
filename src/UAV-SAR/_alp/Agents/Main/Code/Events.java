@@ -1,5 +1,6 @@
 void eventDrawPheromones()
 {/*ALCODESTART::1778310007029*/
+if (pheromoneCanvas == null) return;
 pheromoneCanvas.clear();
 
 double ox = 50;

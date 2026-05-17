@@ -29,8 +29,15 @@
 			<Unit Class="SpeedUnits">MPS</Unit>
 		</VelocityCode>
 		<OnArrival>if (varExploring) {
-    fnPickWaypoint();
-    moveTo(varCandX[varChosenIdx], varCandY[varChosenIdx], varSpeed);
+	fnPickWaypoint();
+	double tx = varCandX[varChosenIdx];
+	double ty = varCandY[varChosenIdx];
+	if (Math.hypot(tx - getX(), ty - getY()) &lt; 0.5) {
+		// Avoid zero-distance moveTo which can recurse into OnArrival
+		tx = getX() + 0.5;
+		ty = getY() + 0.5;
+	}
+	moveTo(tx, ty, varSpeed);
 } else if (varMovingToCharger) {
     varMovingToCharger = false;
 } else {
@@ -351,7 +358,9 @@ moveTo(varCandX[varChosenIdx], varCandY[varChosenIdx], varSpeed);</Action>
 				<Action>fnSenseNow();
 fnSenseNowGrid();
 varBatteryLevel = Math.max(0, varBatteryLevel - varBatteryDepletionRate * 0.5);
-batteryText.setText(String.format("%.0f%%", varBatteryLevel));</Action>
+if (batteryText != null) {
+	batteryText.setText(String.format("%.0f%%", varBatteryLevel));
+}</Action>
 				<Timeout Class="CodeUnitValue">
 					<Code><![CDATA[1]]></Code>
 					<Unit Class="TimeUnits">SECOND</Unit>
@@ -409,10 +418,12 @@ batteryText.setText(String.format("%.0f%%", varBatteryLevel));</Action>
 				<Action>fnSenseNow();
 fnSenseNowGrid();
 if (varTargetConfidence &gt;= varDetectionThreshold) {
-    fnConfirmVictim();
+	fnConfirmVictim();
 }
 varBatteryLevel = Math.max(0, varBatteryLevel - varBatteryDepletionRate * 0.5);
-batteryText.setText(String.format("%.0f%%", varBatteryLevel));</Action>
+if (batteryText != null) {
+	batteryText.setText(String.format("%.0f%%", varBatteryLevel));
+}</Action>
 				<Timeout Class="CodeUnitValue">
 					<Code><![CDATA[1]]></Code>
 					<Unit Class="TimeUnits">SECOND</Unit>
@@ -474,7 +485,9 @@ if (varTargetConfidence &gt;= varDetectionThreshold) {
 }
 
 varBatteryLevel = Math.max(0, varBatteryLevel - varBatteryDepletionRate * 0.5);
-batteryText.setText(String.format("%.0f%%", varBatteryLevel));</Action>
+if (batteryText != null) {
+    batteryText.setText(String.format("%.0f%%", varBatteryLevel));
+}</Action>
 				<Timeout Class="CodeUnitValue">
 					<Code><![CDATA[1]]></Code>
 					<Unit Class="TimeUnits">SECOND</Unit>
@@ -530,7 +543,9 @@ batteryText.setText(String.format("%.0f%%", varBatteryLevel));</Action>
 			<IconOffset>20.0</IconOffset>
 			<Properties Source="1778334676253" Target="1778334676253" Trigger="rate">
 				<Action>varBatteryLevel = Math.min(100, varBatteryLevel + varChargingRate * 0.5);
-batteryText.setText(String.format("%.0f%%", varBatteryLevel));</Action>
+if (batteryText != null) {
+	batteryText.setText(String.format("%.0f%%", varBatteryLevel));
+}</Action>
 				<Timeout Class="CodeUnitValue">
 					<Code><![CDATA[1]]></Code>
 					<Unit Class="TimeUnits">SECOND</Unit>

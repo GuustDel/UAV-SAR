@@ -171,14 +171,18 @@ double fnLogVictimFound(int victimIdx,int uavIdx,double foundTime,double x,doubl
 try {
     String expDir = System.getProperty("uavsar.exp.dir", "experiments");
     java.io.File f = new java.io.File(expDir + "/victim_log.csv");
-    java.io.FileWriter fw = new java.io.FileWriter(f, true);
-    fw.write(varSeed + "," + varSensorRange + "," + varAcoCandidateCount + ","
-        + varAcoStepLength + "," + varAcoAlpha + "," + varAcoBeta + ","
-        + victimIdx + "," + uavIdx + "," + foundTime + "," + x + "," + y + "\n");
-    fw.close();
-} catch (Exception e) {
+
+    // Synchronize on the global System class to prevent multi-thread write overlaps
+    synchronized(System.class) {
+        java.io.FileWriter fw = new java.io.FileWriter(f, true);
+        fw.write(varSeed + "," + varSensorRange + "," + varAcoCandidateCount + ","
+            + varAcoStepLength + "," + varAcoAlpha + "," + varAcoBeta + ","
+            + victimIdx + "," + uavIdx + "," + foundTime + "," + x + "," + y + "\n");
+        fw.close();
+    }
+  } catch (Exception e) {
     traceln("victim_log write error: " + e.getMessage());
-}
+  }
 /*ALCODEEND*/}
 
 double fnLogRunSummary()
@@ -186,13 +190,17 @@ double fnLogRunSummary()
 try {
     String expDir = System.getProperty("uavsar.exp.dir", "experiments");
     java.io.File f = new java.io.File(expDir + "/run_summary.csv");
-    java.io.FileWriter fw = new java.io.FileWriter(f, true);
-    fw.write(varSeed + "," + varSensorRange + "," + varAcoCandidateCount + ","
-        + varAcoStepLength + "," + varAcoAlpha + "," + varAcoBeta + ","
-        + varAllVictimsFound + "," + varConvergenceTime + "," + varFoundVictimCount + "\n");
-    fw.close();
-} catch (Exception e) {
+
+    // Synchronize on a global object class to safe-lock multi-thread writes
+    synchronized(System.class) {
+        java.io.FileWriter fw = new java.io.FileWriter(f, true);
+        fw.write(varSeed + "," + varSensorRange + "," + varAcoCandidateCount + ","
+            + varAcoStepLength + "," + varAcoAlpha + "," + varAcoBeta + ","
+            + varAllVictimsFound + "," + varConvergenceTime + "," + varFoundVictimCount + "\n");
+        fw.close();
+    }
+  } catch (Exception e) {
     traceln("run_summary write error: " + e.getMessage());
-}
+  }
 /*ALCODEEND*/}
 

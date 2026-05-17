@@ -6,10 +6,32 @@
 		<CommandLineArguments/>
 		<InitialSetupCode>new java.io.File("experiments").mkdirs();
 
-int runNum = 1;
-while (new java.io.File("experiments/" + runNum).exists()) runNum++;
-String expDir = "experiments/" + runNum;
-new java.io.File(expDir).mkdirs();
+long runTime;
+java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyyMMddHHmmssSSS");
+
+// Format the initial date string (Outputs exactly 17 digits)
+String runId = "";
+String expDir = "";
+
+// Synchronize on the experiment class object to prevent thread collision
+synchronized(this.getClass()) {
+    runTime = java.lang.System.currentTimeMillis();
+    runId = sdf.format(new java.util.Date(runTime));
+    expDir = "experiments/" + runId;
+
+    // Increment and sleep if the directory already exists
+    while (new java.io.File(expDir).exists()) {
+        try {
+            java.lang.Thread.sleep(1);
+        } catch (Exception e) {}
+        runTime = java.lang.System.currentTimeMillis();
+        runId = sdf.format(new java.util.Date(runTime));
+        expDir = "experiments/" + runId;
+    }
+    
+    // Create the directory immediately while inside the locked block
+    new java.io.File(expDir).mkdirs();
+}
 
 System.setProperty("uavsar.exp.dir", expDir);
 
@@ -31,7 +53,7 @@ try {
 		<SelectionModeForSimultaneousEvents>LIFO</SelectionModeForSimultaneousEvents>
 		<VmArgs/>
 		<LoadRootFromSnapshot>false</LoadRootFromSnapshot>
-		<AllowParallelEvaluations>true</AllowParallelEvaluations>
+		<AllowParallelEvaluations>false</AllowParallelEvaluations>
 		<UseFreeformParameters>false</UseFreeformParameters>
 		<NumberOfRuns>10</NumberOfRuns>
 		<FreeformParamValue>
@@ -59,7 +81,7 @@ try {
 				<Code><![CDATA[100]]></Code>
 			</From>
 			<To Class="CodeValue">
-				<Code><![CDATA[150]]></Code>
+				<Code><![CDATA[100]]></Code>
 			</To>
 			<Step Class="CodeValue">
 				<Code><![CDATA[25]]></Code>
@@ -72,13 +94,13 @@ try {
 				<Code><![CDATA[20]]></Code>
 			</Expression>
 			<From Class="CodeValue">
-				<Code><![CDATA[20]]></Code>
+				<Code><![CDATA[12]]></Code>
 			</From>
 			<To Class="CodeValue">
-				<Code><![CDATA[30]]></Code>
+				<Code><![CDATA[36]]></Code>
 			</To>
 			<Step Class="CodeValue">
-				<Code><![CDATA[5]]></Code>
+				<Code><![CDATA[6]]></Code>
 			</Step>
 		</RangeVariationParamValue>
 		<RangeVariationParamValue>
@@ -91,17 +113,17 @@ try {
 				<Code><![CDATA[150]]></Code>
 			</To>
 			<Step Class="CodeValue">
-				<Code><![CDATA[50]]></Code>
+				<Code><![CDATA[25]]></Code>
 			</Step>
 		</RangeVariationParamValue>
 		<RangeVariationParamValue>
 			<Id>1778832377031</Id>
 			<Type><![CDATA[RANGE]]></Type>
 			<From Class="CodeValue">
-				<Code><![CDATA[1.0]]></Code>
+				<Code><![CDATA[0.5]]></Code>
 			</From>
 			<To Class="CodeValue">
-				<Code><![CDATA[2.0]]></Code>
+				<Code><![CDATA[2.5]]></Code>
 			</To>
 			<Step Class="CodeValue">
 				<Code><![CDATA[0.5]]></Code>
@@ -114,7 +136,7 @@ try {
 				<Code><![CDATA[1.0]]></Code>
 			</From>
 			<To Class="CodeValue">
-				<Code><![CDATA[2.0]]></Code>
+				<Code><![CDATA[4.0]]></Code>
 			</To>
 			<Step Class="CodeValue">
 				<Code><![CDATA[0.5]]></Code>
