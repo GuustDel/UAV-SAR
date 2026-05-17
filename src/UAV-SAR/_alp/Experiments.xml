@@ -6,14 +6,32 @@
 		<CommandLineArguments/>
 		<InitialSetupCode>new java.io.File("experiments").mkdirs();
 
-String runId = new java.text.SimpleDateFormat("yyyyMMddHHmmssSSS")
-	.format(new java.util.Date());
-String expDir = "experiments/" + runId;
-while (new java.io.File(expDir).exists()) {
-	runId = runId + "1";
-	expDir = "experiments/" + runId;
+long runTime;
+java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyyMMddHHmmssSSS");
+
+// Format the initial date string (Outputs exactly 17 digits)
+String runId = "";
+String expDir = "";
+
+// Synchronize on the experiment class object to prevent thread collision
+synchronized(this.getClass()) {
+    runTime = java.lang.System.currentTimeMillis();
+    runId = sdf.format(new java.util.Date(runTime));
+    expDir = "experiments/" + runId;
+
+    // Increment and sleep if the directory already exists
+    while (new java.io.File(expDir).exists()) {
+        try {
+            java.lang.Thread.sleep(1);
+        } catch (Exception e) {}
+        runTime = java.lang.System.currentTimeMillis();
+        runId = sdf.format(new java.util.Date(runTime));
+        expDir = "experiments/" + runId;
+    }
+    
+    // Create the directory immediately while inside the locked block
+    new java.io.File(expDir).mkdirs();
 }
-new java.io.File(expDir).mkdirs();
 
 System.setProperty("uavsar.exp.dir", expDir);
 
