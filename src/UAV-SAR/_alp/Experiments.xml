@@ -6,9 +6,13 @@
 		<CommandLineArguments/>
 		<InitialSetupCode>new java.io.File("experiments").mkdirs();
 
-int runNum = 1;
-while (new java.io.File("experiments/" + runNum).exists()) runNum++;
-String expDir = "experiments/" + runNum;
+String runId = new java.text.SimpleDateFormat("yyyyMMddHHmmssSSS")
+	.format(new java.util.Date());
+String expDir = "experiments/" + runId;
+while (new java.io.File(expDir).exists()) {
+	runId = runId + "1";
+	expDir = "experiments/" + runId;
+}
 new java.io.File(expDir).mkdirs();
 
 System.setProperty("uavsar.exp.dir", expDir);
@@ -31,7 +35,7 @@ try {
 		<SelectionModeForSimultaneousEvents>LIFO</SelectionModeForSimultaneousEvents>
 		<VmArgs/>
 		<LoadRootFromSnapshot>false</LoadRootFromSnapshot>
-		<AllowParallelEvaluations>true</AllowParallelEvaluations>
+		<AllowParallelEvaluations>false</AllowParallelEvaluations>
 		<UseFreeformParameters>false</UseFreeformParameters>
 		<NumberOfRuns>10</NumberOfRuns>
 		<FreeformParamValue>
@@ -59,7 +63,7 @@ try {
 				<Code><![CDATA[100]]></Code>
 			</From>
 			<To Class="CodeValue">
-				<Code><![CDATA[150]]></Code>
+				<Code><![CDATA[100]]></Code>
 			</To>
 			<Step Class="CodeValue">
 				<Code><![CDATA[25]]></Code>
@@ -72,13 +76,13 @@ try {
 				<Code><![CDATA[20]]></Code>
 			</Expression>
 			<From Class="CodeValue">
-				<Code><![CDATA[20]]></Code>
+				<Code><![CDATA[12]]></Code>
 			</From>
 			<To Class="CodeValue">
-				<Code><![CDATA[30]]></Code>
+				<Code><![CDATA[36]]></Code>
 			</To>
 			<Step Class="CodeValue">
-				<Code><![CDATA[5]]></Code>
+				<Code><![CDATA[6]]></Code>
 			</Step>
 		</RangeVariationParamValue>
 		<RangeVariationParamValue>
@@ -91,17 +95,17 @@ try {
 				<Code><![CDATA[150]]></Code>
 			</To>
 			<Step Class="CodeValue">
-				<Code><![CDATA[50]]></Code>
+				<Code><![CDATA[25]]></Code>
 			</Step>
 		</RangeVariationParamValue>
 		<RangeVariationParamValue>
 			<Id>1778832377031</Id>
 			<Type><![CDATA[RANGE]]></Type>
 			<From Class="CodeValue">
-				<Code><![CDATA[1.0]]></Code>
+				<Code><![CDATA[0.5]]></Code>
 			</From>
 			<To Class="CodeValue">
-				<Code><![CDATA[2.0]]></Code>
+				<Code><![CDATA[2.5]]></Code>
 			</To>
 			<Step Class="CodeValue">
 				<Code><![CDATA[0.5]]></Code>
@@ -114,7 +118,7 @@ try {
 				<Code><![CDATA[1.0]]></Code>
 			</From>
 			<To Class="CodeValue">
-				<Code><![CDATA[2.0]]></Code>
+				<Code><![CDATA[4.0]]></Code>
 			</To>
 			<Step Class="CodeValue">
 				<Code><![CDATA[0.5]]></Code>
