@@ -139,7 +139,7 @@ You run the experiments in Anylogic (this will generate verbose log files) and l
 1. First decide which variables you want to test in the experiment (the experiment is currently set up to test varSensorRange, varAcoCandidateCount, varAcoStepLength, varAcoALpha, varAcoBeta, varSeed). 
 2. Adding parameters is easy, in the main window, you add a parameter (not variable) for the variable you want to test. most likely this will be a variable in the uav agent, but the parametersweep experiment can only vary parameters in main. so we must define them in main and then manually sync them to uav later (see 3.)
 3. In onStartup in the main agent, sync the parameter value you defined to the right variable in the uav agent:
-```python
+```java
 for (UAV u : uavs) {
     u.varSensorRange       = varSensorRange;
     u.varAcoCandidateCount = varAcoCandidateCount;
