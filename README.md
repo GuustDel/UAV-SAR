@@ -34,7 +34,7 @@ This project implements an agent-based UAV search and rescue (SAR) model.
 Target architecture direction:
 - BDI-style high-level state behavior
 - ACO-inspired local coordination and movement selection
-- TAPB-style belief freshness checks
+- TAPB-style belief freshness checks (Timed Active Perception Belief-TAPB)
 
 Current objective is a stable, reproducible baseline that can be extended into full BDI+ACO+TAPB behavior and sensitivity experiments.
 
