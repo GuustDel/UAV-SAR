@@ -274,6 +274,23 @@ if (totalScore <= 0) {
     }
 }
 
+// Ensure chosen candidate is meaningfully far to avoid tiny circling moves
+double minMoveDist = Math.max(1.0, step * 0.3);
+double chosenDist = Math.hypot(candX[chosenIdx] - getX(), candY[chosenIdx] - getY());
+if (chosenDist < minMoveDist) {
+    // search for best-scoring candidate that satisfies distance threshold
+    int bestIdx = -1;
+    double bestScore = -1e308;
+    for (int i = 0; i < n; i++) {
+        double d = Math.hypot(candX[i] - getX(), candY[i] - getY());
+        if (d >= minMoveDist && scores[i] > bestScore) {
+            bestScore = scores[i];
+            bestIdx = i;
+        }
+    }
+    if (bestIdx >= 0) chosenIdx = bestIdx;
+}
+
 if (varLocalSearchMode) {
     varLocalSearchStepsLeft--;
     if (varLocalSearchStepsLeft <= 0) {
@@ -292,6 +309,12 @@ varDesiredHeadingDeg = Math.toDegrees(Math.atan2(
     varCandY[varChosenIdx] - getY(),
     varCandX[varChosenIdx] - getX()
 ));
+
+if (varEnableSenseDebug) {
+    traceln(String.format("UAV %d pick t=%.1f idx=%d target=(%.1f,%.1f) dist=%.2f",
+        getIndex(), time(), varChosenIdx, varCandX[varChosenIdx], varCandY[varChosenIdx],
+        Math.hypot(varCandX[varChosenIdx] - getX(), varCandY[varChosenIdx] - getY())));
+}
 /*ALCODEEND*/}
 
 double function()
