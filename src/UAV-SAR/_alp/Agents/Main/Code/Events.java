@@ -15,13 +15,20 @@ for (int row = 0; row < varGridRows; row++) {
         int alpha = (int)(intensity * 220);
         if (alpha < 5) continue;
         int r, g, b;
-        if (intensity < 0.5) {
-            float t = (float)(intensity / 0.5);
-            r = 255; g = (int)(255 * t); b = 0;
-        } else {
-            float t = (float)((intensity - 0.5) / 0.5);
-            r = (int)(255 * (1 - t)); g = 255; b = 0;
-        }
+        int[][] stops = {
+            {255,  80,  0},   // intensity 0.00 — dark orange
+            {255, 140,  0},   // intensity 0.17 — orange
+            {255, 200,  0},   // intensity 0.33 — amber
+            {255, 255,  0},   // intensity 0.50 — yellow
+            {180, 255,  0},   // intensity 0.67 — yellow-green
+            { 80, 240,  0},   // intensity 0.83 — light green
+            {  0, 200,  0}    // intensity 1.00 — green
+        };
+        int seg = Math.min((int)(intensity * 6), 5);
+        float t  = (float)(intensity * 6 - seg);
+        r = stops[seg][0] + (int)(t * (stops[seg+1][0] - stops[seg][0]));
+        g = stops[seg][1] + (int)(t * (stops[seg+1][1] - stops[seg][1]));
+        b = stops[seg][2] + (int)(t * (stops[seg+1][2] - stops[seg][2]));
         double px = col * varGridCellSize;
         double py = row * varGridCellSize;
         pheromoneCanvas.fillRectangle(px, py, varGridCellSize, varGridCellSize,
@@ -81,13 +88,16 @@ for (UAV u : uavs) {
     }
 }
 
-// 4. Found victim markers
+// 4. Found victim markers — red X
 for (Victims v : victims) {
     if (!v.varIsFound) continue;
     double mx = v.getX() - ox;
     double my = v.getY() - oy;
-    pheromoneCanvas.fillCircle(mx, my, 12, new java.awt.Color(255, 0, 0, 180));
-    pheromoneCanvas.fillCircle(mx, my, 5,  new java.awt.Color(255, 255, 255, 255));
+    java.awt.Color xColor = new java.awt.Color(220, 0, 0, 255);
+    for (int d = -10; d <= 10; d++) {
+        pheromoneCanvas.fillCircle(mx + d, my + d, 2, xColor);
+        pheromoneCanvas.fillCircle(mx + d, my - d, 2, xColor);
+    }
 }
 /*ALCODEEND*/}
 
