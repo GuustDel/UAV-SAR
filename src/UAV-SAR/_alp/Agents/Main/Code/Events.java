@@ -5,6 +5,15 @@ pheromoneCanvas.clear();
 
 double ox = 50;
 double oy = 50;
+int[][] stops = {
+    {255,  80,  0},   // intensity 0.00 — dark orange
+    {255, 140,  0},   // intensity 0.17 — orange
+    {255, 200,  0},   // intensity 0.33 — amber
+    {255, 255,  0},   // intensity 0.50 — yellow
+    {180, 255,  0},   // intensity 0.67 — yellow-green
+    { 80, 240,  0},   // intensity 0.83 — light green
+    {  0, 200,  0}    // intensity 1.00 — green
+};
 
 // 1. Pheromone grid tiles
 for (int row = 0; row < varGridRows; row++) {
@@ -15,15 +24,6 @@ for (int row = 0; row < varGridRows; row++) {
         int alpha = (int)(intensity * 220);
         if (alpha < 5) continue;
         int r, g, b;
-        int[][] stops = {
-            {255,  80,  0},   // intensity 0.00 — dark orange
-            {255, 140,  0},   // intensity 0.17 — orange
-            {255, 200,  0},   // intensity 0.33 — amber
-            {255, 255,  0},   // intensity 0.50 — yellow
-            {180, 255,  0},   // intensity 0.67 — yellow-green
-            { 80, 240,  0},   // intensity 0.83 — light green
-            {  0, 200,  0}    // intensity 1.00 — green
-        };
         int segmentCount = stops.length - 1;
         double scaledIntensity = intensity * segmentCount;
         int seg = Math.min((int)scaledIntensity, segmentCount - 1);
