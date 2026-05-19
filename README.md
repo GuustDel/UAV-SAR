@@ -170,3 +170,17 @@ Replace random waypoint Explore movement with explicit TAPB + ACO decision flow:
 3. Select and execute move, then deposit/update local trace.
 
 This will align the running model with the intended research narrative for report and presentation.
+
+---
+
+## CI And Protection
+
+The repo now includes a lightweight guard workflow:
+- `.github/workflows/ci.yml` runs `scripts/check_alp_xml.py` on pushes and pull requests to `main`.
+- The checker validates AnyLogic XML well-formedness, flags merge conflict markers, and catches empty `Code` blocks in the model files.
+
+Recommended GitHub setting:
+- Protect `main` and require the `AnyLogic Guard` workflow to pass before merge.
+
+Note:
+- A true AnyLogic headless simulation smoke test still needs an AnyLogic-enabled runner or a local manual run, so this workflow is the static safety gate rather than a full runtime replacement.
