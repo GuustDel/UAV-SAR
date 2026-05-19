@@ -24,8 +24,10 @@ for (int row = 0; row < varGridRows; row++) {
             { 80, 240,  0},   // intensity 0.83 — light green
             {  0, 200,  0}    // intensity 1.00 — green
         };
-        int seg = Math.min((int)(intensity * 6), 5);
-        float t  = (float)(intensity * 6 - seg);
+        int segmentCount = stops.length - 1;
+        double scaledIntensity = intensity * segmentCount;
+        int seg = Math.min((int)scaledIntensity, segmentCount - 1);
+        float t  = (float)(scaledIntensity - seg);
         r = stops[seg][0] + (int)(t * (stops[seg+1][0] - stops[seg][0]));
         g = stops[seg][1] + (int)(t * (stops[seg+1][1] - stops[seg][1]));
         b = stops[seg][2] + (int)(t * (stops[seg+1][2] - stops[seg][2]));
