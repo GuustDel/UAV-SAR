@@ -683,6 +683,28 @@
 		</Properties>
 	</Variable>
 	<Variable Class="PlainVariable">
+		<Id>1780000006001</Id>
+		<Name><![CDATA[varInitialDispersalDone]]></Name>
+		<X>60</X>
+		<Y>1180</Y>
+		<Label>
+			<X>10</X>
+			<Y>0</Y>
+		</Label>
+		<PublicFlag>false</PublicFlag>
+		<PresentationFlag>true</PresentationFlag>
+		<ShowLabel>true</ShowLabel>
+		<Properties SaveInSnapshot="true"
+              Constant="false"
+              AccessType="public"
+              StaticVariable="false">
+			<Type><![CDATA[boolean]]></Type>
+			<InitialValue Class="CodeValue">
+				<Code><![CDATA[false]]></Code>
+			</InitialValue>
+		</Properties>
+	</Variable>
+	<Variable Class="PlainVariable">
 		<Id>1778328236339</Id>
 		<Name><![CDATA[varShowCandidates]]></Name>
 		<X>60</X>

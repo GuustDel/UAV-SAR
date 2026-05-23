@@ -7,12 +7,19 @@ getDefaultRandomGenerator().setSeed(varSeed);
 
 // Push experiment parameters down to every UAV
 for (UAV u : uavs) {
-    u.varSensorRange       = varSensorRange;
-    u.varAcoCandidateCount = varAcoCandidateCount;
-    u.varAcoStepLength     = varAcoStepLength;
-    u.varAcoAlpha          = varAcoAlpha;
-    u.varAcoBeta           = varAcoBeta;
-    u.varBatteryLevel      = uniform(20, 80);
+	u.varSensorRange       = varSensorRange;
+	u.varAcoCandidateCount = varAcoCandidateCount;
+	u.varAcoStepLength     = varAcoStepLength;
+	u.varAcoAlpha          = varAcoAlpha;
+	u.varAcoBeta           = varAcoBeta;
+	u.varBatteryLevel      = uniform(20, 80);
+}
+
+// Start UAVs at charger coordinates to ensure deterministic charger start behavior
+for (UAV u : uavs) {
+	u.setXY(880, 460);
+	u.varMovingToCharger = false;
+	u.setSpeed(Math.max(0.1, u.varSpeed));
 }
 
 // Place victims after seed is set so placement is reproducible

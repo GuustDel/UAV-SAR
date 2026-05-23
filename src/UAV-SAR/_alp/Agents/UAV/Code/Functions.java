@@ -164,6 +164,27 @@ void fnPickWaypoint()
 traceln("UAV " + getIndex() + " fnPickWaypoint: returnFlag=" + varReturnToLastLocation +
     ", lastCritical=(" + varLastCriticalX + "," + varLastCriticalY + 
     "), localSearch=" + varLocalSearchMode);
+// one-time initial dispersal: place UAVs in left/center/right thirds of the release area
+if (!varInitialDispersalDone) {
+    varInitialDispersalDone = true;
+    double tx = getX();
+    double ty = getY();
+    if (main != null && main.spaceRelease != null) {
+        double sx = main.spaceRelease.getX();
+        double sy = main.spaceRelease.getY();
+        double sw = main.spaceRelease.getWidth();
+        double sh = main.spaceRelease.getHeight();
+        int choice = (int) uniform(0, 3);
+        if (choice == 0) { tx = sx + 0.25 * sw; ty = sy + 0.5 * sh; }
+        else if (choice == 1) { tx = sx + 0.5 * sw; ty = sy + 0.5 * sh; }
+        else { tx = sx + 0.75 * sw; ty = sy + 0.5 * sh; }
+    } else {
+        int choice = (int) uniform(0, 3);
+        if (choice == 0) { tx = 200; ty = 300; } else if (choice == 1) { tx = 500; ty = 300; } else { tx = 800; ty = 300; }
+    }
+    setXY(tx, ty);
+    return;
+}
 int n = Math.max(1, varAcoCandidateCount);
 double step = varAcoStepLength;
 
