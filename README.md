@@ -184,3 +184,48 @@ Recommended GitHub setting:
 
 Note:
 - A true AnyLogic headless simulation smoke test still needs an AnyLogic-enabled runner or a local manual run, so this workflow is the static safety gate rather than a full runtime replacement.
+
+--- 
+
+## Adaptive-step A/B study
+
+Goal: compare the baseline against adaptive dynamic step sizing based on local pheromone average, using paired runs with the same seed in both modes.
+
+Settings:
+1. Baseline: `varUseAdaptiveStep = false`
+2. Adaptive: `varUseAdaptiveStep = true`, `varAdaptiveStepThreshold = 1.25`, `varAdaptiveStepMaxMultiplier = 1.5`
+
+Run artifacts and screenshots: [experiments-adaptive_stepsize](./experiments-adaptive_stepsize/)
+
+| varSeed | Baseline (`false`) convergence time (s) | Adaptive (`true`) convergence time (s) |
+|---|---:|---:|
+| 23  | 65.75  | 125.80 |
+| 1   | 73.25  | 128.00 |
+| 35  | 156.75 | 66.70  |
+| 176 | 190.45 | 97.90  |
+| 69  | 88.80  | 102.10 |
+| 5   | 100.62 | 91.50  |
+
+### Result summary
+
+- Adaptive is not uniformly better per seed (3 wins, 3 losses in this sample).
+- Mean convergence improves from about `112.6s` to `102.0s`.
+- Median is slightly worse with adaptive in this sample, so the gain comes from a few strong improvements rather than a universal shift.
+- Because the same `varSeed` is used in both modes, each comparison is paired and aligned at the level of victim placement and stochastic decisions.
+
+### Paper-ready takeaway
+
+- Adaptive step is a promising opt-in heuristic.
+- The effect is seed-sensitive.
+- Default should remain conservative (`false`) until a larger paired sweep confirms the gain.
+
+### Next validation step
+
+1. Keep default `varUseAdaptiveStep = false` for stability, and only enable it for controlled experiments.
+2. Expand to at least 30-50 paired seeds.
+3. Sweep thresholds `1.10`, `1.25`, `1.50` with `varAdaptiveStepMaxMultiplier = 1.5`.
+4. Report mean, median, success rate, and timeout count.
+5. Promote adaptive step only if the larger sample preserves the improvement.
+
+Charging note:
+- Charger-bound movement now uses the same movement-speed setting as the other move paths, so heading to the charging station should not become a special fast path.

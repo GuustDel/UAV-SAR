@@ -296,9 +296,8 @@ fnSenseNowGrid();</EntryAction>
 			<PresentationFlag>true</PresentationFlag>
 			<ShowLabel>true</ShowLabel>
 			<Properties Width="140" Height="30">
-				<EntryAction>varExploring = false;
+					<EntryAction>varExploring = false;
 varMovingToCharger = true;
-setSpeed(varSpeed);
 moveTo(880, 460, varSpeed);</EntryAction>
 				<FillColor>0</FillColor>
 			</Properties>

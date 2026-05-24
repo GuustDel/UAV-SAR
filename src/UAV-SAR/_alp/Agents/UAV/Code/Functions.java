@@ -188,6 +188,34 @@ if (!varInitialDispersalDone) {
 int n = Math.max(1, varAcoCandidateCount);
 double step = varAcoStepLength;
 
+// Adaptive step stays opt-in so the default run is unchanged.
+if (varUseAdaptiveStep && main != null) {
+    double uavX = getX();
+    double uavY = getY();
+    double sr = varSensorRange;
+    int colMin = Math.max(0, (int)((uavX - sr - main.varGridOriginX) / main.varGridCellSize));
+    int colMax = Math.min(main.varGridCols - 1, (int)((uavX + sr - main.varGridOriginX) / main.varGridCellSize));
+    int rowMin = Math.max(0, (int)((uavY - sr - main.varGridOriginY) / main.varGridCellSize));
+    int rowMax = Math.min(main.varGridRows - 1, (int)((uavY + sr - main.varGridOriginY) / main.varGridCellSize));
+    double phSum = 0.0;
+    int phCount = 0;
+    for (int r = rowMin; r <= rowMax; r++) {
+        for (int c = colMin; c <= colMax; c++) {
+            double cellCx = main.varGridOriginX + (c + 0.5) * main.varGridCellSize;
+            double cellCy = main.varGridOriginY + (r + 0.5) * main.varGridCellSize;
+            double ddx = cellCx - uavX;
+            double ddy = cellCy - uavY;
+            if (ddx * ddx + ddy * ddy > sr * sr) continue;
+            phSum += main.fnGetPheromone(r * main.varGridCols + c);
+            phCount++;
+        }
+    }
+    double localPh = (phCount > 0) ? phSum / phCount : 0.0;
+    if (localPh >= varAdaptiveStepThreshold) {
+        step *= Math.min(varAdaptiveStepMaxMultiplier, 1.0 + localPh);
+    }
+}
+
 double margin = 10;
 double minX = 100 + margin;
 double maxX = 900 - margin;

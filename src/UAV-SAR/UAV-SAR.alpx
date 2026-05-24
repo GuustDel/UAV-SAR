@@ -48,7 +48,7 @@
 				<ExecutionMode>realTimeScaled</ExecutionMode>
 				<RealTimeScale>1.0</RealTimeScale>
 				<EnableZoomAndPanning>true</EnableZoomAndPanning>
-				<EnableDeveloperPanel>false</EnableDeveloperPanel>
+				<EnableDeveloperPanel>true</EnableDeveloperPanel>
 				<ShowDeveloperPanelOnStart>false</ShowDeveloperPanelOnStart>
 			</AnimationProperties>
 			<Inputs/>
