@@ -6,7 +6,7 @@
 		<Id>1777049001651</Id>
 		<Name><![CDATA[fnPlaceVictimsGMM]]></Name>
 		<X>910</X>
-		<Y>650</Y>
+		<Y>810</Y>
 		<Label>
 			<X>10</X>
 			<Y>0</Y>
@@ -22,7 +22,7 @@
 		<Id>1780000004001</Id>
 		<Name><![CDATA[fnGetPheromone]]></Name>
 		<X>730</X>
-		<Y>650</Y>
+		<Y>810</Y>
 		<Label>
 			<X>10</X>
 			<Y>0</Y>
@@ -42,7 +42,7 @@
 		<Id>1780000004002</Id>
 		<Name><![CDATA[fnDepositPheromone]]></Name>
 		<X>730</X>
-		<Y>670</Y>
+		<Y>830</Y>
 		<Label>
 			<X>10</X>
 			<Y>0</Y>
@@ -66,7 +66,7 @@
 		<Id>1778423584943</Id>
 		<Name><![CDATA[fnMarkVictimFound]]></Name>
 		<X>730</X>
-		<Y>690</Y>
+		<Y>850</Y>
 		<Label>
 			<X>10</X>
 			<Y>0</Y>
@@ -94,7 +94,7 @@
 		<Id>1778831293480</Id>
 		<Name><![CDATA[fnLogVictimFound]]></Name>
 		<X>730</X>
-		<Y>760</Y>
+		<Y>920</Y>
 		<Label>
 			<X>10</X>
 			<Y>0</Y>
@@ -130,7 +130,7 @@
 		<Id>1778831401084</Id>
 		<Name><![CDATA[fnLogRunSummary]]></Name>
 		<X>730</X>
-		<Y>780</Y>
+		<Y>940</Y>
 		<Label>
 			<X>10</X>
 			<Y>0</Y>

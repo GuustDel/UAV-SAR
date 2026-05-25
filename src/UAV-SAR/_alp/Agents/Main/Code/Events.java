@@ -40,16 +40,15 @@ for (int row = 0; row < varGridRows; row++) {
 
 // 2. FOV cones — drawn in Main's coordinate space, scale matches sensing exactly
 for (UAV u : uavs) {
-    if (u.varMovingToCharger || u.varCharging) continue;
- 
+	if (u.varCharging) continue;
+	
     double cx          = u.getX() - ox;
     double cy          = u.getY() - oy;
     double centerAngle = u.getRotation();
     double halfRad     = Math.toRadians(u.varFovHalfAngleDeg);
     double rMax        = u.varSensorRange;
 
-    boolean detected = u.varTargetConfidence >= u.varDetectionThreshold;
-    java.awt.Color fill = detected
+		boolean detected = (u.varTargetConfidence >= u.varDetectionThreshold) && !u.varMovingToCharger && !u.varCharging;    java.awt.Color fill = detected
         ? new java.awt.Color(255, 140, 0, 60)
         : new java.awt.Color(100, 200, 255, 50);
     java.awt.Color outline = detected
@@ -57,21 +56,19 @@ for (UAV u : uavs) {
         : new java.awt.Color(50, 150, 255, 160);
 
     // Fill slice
-    for (double a = centerAngle - halfRad; a <= centerAngle + halfRad; a += Math.toRadians(2)) {
-        for (double r = 0; r <= rMax; r += 2) {
-            pheromoneCanvas.fillCircle(cx + r * Math.cos(a), cy + r * Math.sin(a), 2, fill);
+    for (double a = centerAngle - halfRad; a <= centerAngle + halfRad; a += Math.toRadians(4)) {
+        for (double r = 0; r <= rMax; r += 4) {
+            pheromoneCanvas.fillCircle(cx + r * Math.cos(a), cy + r * Math.sin(a), 3, fill);
         }
     }
     // Boundary rays
-    for (double r = 0; r <= rMax; r += 2) {
-        pheromoneCanvas.fillCircle(cx + r * Math.cos(centerAngle - halfRad),
-                                   cy + r * Math.sin(centerAngle - halfRad), 2, outline);
-        pheromoneCanvas.fillCircle(cx + r * Math.cos(centerAngle + halfRad),
-                                   cy + r * Math.sin(centerAngle + halfRad), 2, outline);
+    for (double r = 0; r <= rMax; r += 4) {
+        pheromoneCanvas.fillCircle(cx + r * Math.cos(centerAngle - halfRad), cy + r * Math.sin(centerAngle - halfRad), 3, outline);
+        pheromoneCanvas.fillCircle(cx + r * Math.cos(centerAngle + halfRad), cy + r * Math.sin(centerAngle + halfRad), 3, outline);
     }
     // Outer arc
-    for (double a = centerAngle - halfRad; a <= centerAngle + halfRad; a += Math.toRadians(1)) {
-        pheromoneCanvas.fillCircle(cx + rMax * Math.cos(a), cy + rMax * Math.sin(a), 2, outline);
+    for (double a = centerAngle - halfRad; a <= centerAngle + halfRad; a += Math.toRadians(2)) {
+        pheromoneCanvas.fillCircle(cx + rMax * Math.cos(a), cy + rMax * Math.sin(a), 3, outline);
     }
 }
 
@@ -101,6 +98,9 @@ for (Victims v : victims) {
         pheromoneCanvas.fillCircle(mx + d, my - d, 2, xColor);
     }
 }
+
+if (uavs.size() > 0) uavState0.setText("UAV" + (uavs.get(0).getIndex() + 1) + ": " + uavs.get(0).varCurrentStateName);
+if (uavs.size() > 1) uavState1.setText("UAV" + (uavs.get(1).getIndex() + 1) + ": " + uavs.get(1).varCurrentStateName);
 /*ALCODEEND*/}
 
 void eventSafetyStop()

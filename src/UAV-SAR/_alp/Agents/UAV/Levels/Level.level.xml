@@ -21,8 +21,8 @@
 	<Text>
 		<Id>1778243658801</Id>
 		<Name><![CDATA[text]]></Name>
-		<X>250</X>
-		<Y>640</Y>
+		<X>240</X>
+		<Y>900</Y>
 		<Label>
 			<X>0</X>
 			<Y>-10</Y>
@@ -46,8 +46,8 @@
 	<Text>
 		<Id>1778243764214</Id>
 		<Name><![CDATA[text1]]></Name>
-		<X>50</X>
-		<Y>840</Y>
+		<X>40</X>
+		<Y>1100</Y>
 		<Label>
 			<X>0</X>
 			<Y>-10</Y>
@@ -71,8 +71,8 @@
 	<Text>
 		<Id>1778243896973</Id>
 		<Name><![CDATA[text2]]></Name>
-		<X>50</X>
-		<Y>640</Y>
+		<X>40</X>
+		<Y>900</Y>
 		<Label>
 			<X>0</X>
 			<Y>-10</Y>
@@ -96,8 +96,8 @@
 	<Text>
 		<Id>1778243966265</Id>
 		<Name><![CDATA[text3]]></Name>
-		<X>660</X>
-		<Y>640</Y>
+		<X>650</X>
+		<Y>900</Y>
 		<Label>
 			<X>0</X>
 			<Y>-10</Y>
@@ -121,8 +121,8 @@
 	<Text>
 		<Id>1778244122946</Id>
 		<Name><![CDATA[text5]]></Name>
-		<X>450</X>
-		<Y>640</Y>
+		<X>440</X>
+		<Y>900</Y>
 		<Label>
 			<X>0</X>
 			<Y>-10</Y>
@@ -146,8 +146,8 @@
 	<Text>
 		<Id>1778244170229</Id>
 		<Name><![CDATA[text6]]></Name>
-		<X>860</X>
-		<Y>640</Y>
+		<X>850</X>
+		<Y>900</Y>
 		<Label>
 			<X>0</X>
 			<Y>-10</Y>
@@ -171,8 +171,8 @@
 	<Text>
 		<Id>1778244401859</Id>
 		<Name><![CDATA[text7]]></Name>
-		<X>250</X>
-		<Y>840</Y>
+		<X>650</X>
+		<Y>1100</Y>
 		<Label>
 			<X>0</X>
 			<Y>-10</Y>
@@ -196,8 +196,8 @@
 	<Text>
 		<Id>1778244461745</Id>
 		<Name><![CDATA[text8]]></Name>
-		<X>460</X>
-		<Y>840</Y>
+		<X>860</X>
+		<Y>1100</Y>
 		<Label>
 			<X>0</X>
 			<Y>-10</Y>
@@ -245,59 +245,9 @@
 		<OriginalSize>false</OriginalSize>
 	</Image>
 	<Text>
-		<Id>1779000002101</Id>
-		<Name><![CDATA[confidenceText]]></Name>
-		<X>-15</X>
-		<Y>0</Y>
-		<Label>
-			<X>10</X>
-			<Y>0</Y>
-		</Label>
-		<PublicFlag>true</PublicFlag>
-		<PresentationFlag>true</PresentationFlag>
-		<ShowLabel>false</ShowLabel>
-		<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-		<EmbeddedIcon>false</EmbeddedIcon>
-		<Z>0</Z>
-		<Rotation>90.0</Rotation>
-		<Color>-16777216</Color>
-		<Text/>
-		<Font>
-			<Name><![CDATA[SansSerif]]></Name>
-			<Size>12</Size>
-			<Style>0</Style>
-		</Font>
-		<Alignment>CENTER</Alignment>
-	</Text>
-	<Text>
-		<Id>1778321479462</Id>
-		<Name><![CDATA[angleText]]></Name>
-		<X>-30</X>
-		<Y>0</Y>
-		<Label>
-			<X>0</X>
-			<Y>-10</Y>
-		</Label>
-		<PublicFlag>true</PublicFlag>
-		<PresentationFlag>true</PresentationFlag>
-		<ShowLabel>false</ShowLabel>
-		<DrawMode>SHAPE_DRAW_2D</DrawMode>
-		<EmbeddedIcon>false</EmbeddedIcon>
-		<Z>0</Z>
-		<Rotation>90.0</Rotation>
-		<Color>-65536</Color>
-		<Text/>
-		<Font>
-			<Name><![CDATA[SansSerif]]></Name>
-			<Size>12</Size>
-			<Style>0</Style>
-		</Font>
-		<Alignment>CENTER</Alignment>
-	</Text>
-	<Text>
 		<Id>1778334804559</Id>
 		<Name><![CDATA[batteryText]]></Name>
-		<X>-50</X>
+		<X>-20</X>
 		<Y>0</Y>
 		<Label>
 			<X>0</X>
@@ -322,7 +272,7 @@
 	<Text>
 		<Id>1778419425693</Id>
 		<Name><![CDATA[uavIdText]]></Name>
-		<X>-70</X>
+		<X>-35</X>
 		<Y>0</Y>
 		<Label>
 			<X>0</X>
@@ -344,5 +294,30 @@
 			<Style>0</Style>
 		</Font>
 		<Alignment>CENTER</Alignment>
+	</Text>
+	<Text>
+		<Id>1779701198635</Id>
+		<Name><![CDATA[text9]]></Name>
+		<X>450</X>
+		<Y>1100</Y>
+		<Label>
+			<X>0</X>
+			<Y>-10</Y>
+		</Label>
+		<PublicFlag>false</PublicFlag>
+		<PresentationFlag>true</PresentationFlag>
+		<ShowLabel>false</ShowLabel>
+		<DrawMode>SHAPE_DRAW_2D</DrawMode>
+		<EmbeddedIcon>false</EmbeddedIcon>
+		<Z>0</Z>
+		<Rotation>0.0</Rotation>
+		<Color>-16777216</Color>
+		<Text><![CDATA[Startup]]></Text>
+		<Font>
+			<Name><![CDATA[SansSerif]]></Name>
+			<Size>14</Size>
+			<Style>1</Style>
+		</Font>
+		<Alignment>LEFT</Alignment>
 	</Text>
 </Presentation>

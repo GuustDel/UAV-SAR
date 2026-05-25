@@ -31,7 +31,7 @@
 		</Replication>
 		<CollectionType>ARRAY_LIST_BASED</CollectionType>
 		<InEnvironment>true</InEnvironment>
-		<InitialLocationType>NODE</InitialLocationType>
+		<InitialLocationType>XYZ</InitialLocationType>
 		<ColumnCode Class="CodeValue">
 			<Code><![CDATA[0]]></Code>
 		</ColumnCode>

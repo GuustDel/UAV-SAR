@@ -12,17 +12,21 @@ for (UAV u : uavs) {
 	u.varAcoStepLength     = varAcoStepLength;
 	u.varAcoAlpha          = varAcoAlpha;
 	u.varAcoBeta           = varAcoBeta;
-	u.varBatteryLevel      = uniform(20, 80);
+	u.varBatteryLevel      = 100;
 }
 
-// Start UAVs at charger coordinates to ensure deterministic charger start behavior
-for (UAV u : uavs) {
-	u.setXY(880, 460);
-	u.varMovingToCharger = false;
-	u.setSpeed(Math.max(0.1, u.varSpeed));
+// Assign evenly spaced dispersal positions based on UAV count
+int n = uavs.size();
+for (int i = 0; i < n; i++) {
+    UAV u = uavs.get(i);
+    double sx = spaceRelease.getX();
+    double sy = spaceRelease.getY();
+    double sw = spaceRelease.getWidth();
+    double sh = spaceRelease.getHeight();
+    u.varDispersalX = sx + (i + 0.5) / n * sw;
+    u.varDispersalY = sy + 0.5 * sh;
 }
 
-// Place victims after seed is set so placement is reproducible
 fnPlaceVictimsGMM();]]></StartupCode>
 	<Generic>false</Generic>
 	<GenericParameter>
@@ -165,8 +169,8 @@ fnPlaceVictimsGMM();]]></StartupCode>
 		<EmbeddedObjectPresentation>
 			<Id>1776961987922</Id>
 			<Name><![CDATA[uavs_presentation]]></Name>
-			<X>-10</X>
-			<Y>0</Y>
+			<X>880</X>
+			<Y>460</Y>
 			<Label>
 				<X>10</X>
 				<Y>0</Y>
@@ -177,8 +181,7 @@ fnPlaceVictimsGMM();]]></StartupCode>
 			<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
 			<EmbeddedIcon>false</EmbeddedIcon>
 			<Z>0</Z>
-			<Rotation>0.0</Rotation>
-			<RotationCode>-PI + getDefaultRandomGenerator().nextDouble()*2*PI</RotationCode>
+			<Rotation>180.0</Rotation>
 			<ScaleType>AUTOMATICALLY_CALCULATED</ScaleType>
 			<GISScaleForRealEmbeddedObjectPresentationSize>1000</GISScaleForRealEmbeddedObjectPresentationSize>
 			<GISScaleForFixedEmbeddedObjectPresentationSize>1000000000</GISScaleForFixedEmbeddedObjectPresentationSize>
