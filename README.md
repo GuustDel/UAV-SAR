@@ -1,3 +1,37 @@
+# New — 25/5
+
+**Startup dispersal**
+UAVs now spread out before searching. Each UAV is assigned a starting waypoint (evenly spaced across the release zone) and must fly there before entering Explore. Sensing is active during dispersal so a victim spotted on the way in immediately switches the UAV to Exploit.
+
+**Adaptive step uses minimum pheromone**
+The decision to increase step length is now based on the *minimum* pheromone across all candidate directions rather than the average. The UAV only takes a longer jump when every nearby direction looks well-explored, not just most of them. This makes the adaptive step more conservative and avoids prematurely skipping over lightly-searched areas.
+
+**Battery logic centralised**
+Battery depletion is now owned by a single dedicated statechart running in parallel with the main behaviour statechart. Previously depletion was duplicated across every active state. Behaviour is unchanged; the model is easier to tune and reason about.
+
+**UAVs spawn at full battery**
+UAVs previously spawned with a random battery between 20 % and 80 %. They now always start at 100 %.
+
+**FOV cone stays visible during charger transit**
+The sensor cone was hidden whenever a UAV was heading to the charger. It now remains visible during the transit and only disappears while the UAV is physically docked and charging.
+
+**FOV cone colour resets when heading to charger**
+If a UAV detected a victim just before its battery dropped below the threshold, the cone stayed orange even while flying back to the charger. The cone now immediately returns to blue when a UAV enters the return-to-charger or charging phase.
+
+**Victim placement now uses GMM**
+The Gaussian mixture model placement function was implemented but never called, so victims were placed uniformly at random. Victims are now positioned according to the configured GMM clusters.
+
+**Per-UAV state labels in the visualisation**
+Two text labels below the release zone show the current behavioural state of each UAV (Startup / Explore / Exploit / To Charger / Charging) and update live during the simulation.
+
+**Maximum simulation runtime extended**
+The safety-stop timeout was raised from 100 s to 200 s, giving UAVs more time to find all victims before the run is marked as a timeout.
+
+**Faster rendering**
+The sensor cone visualisation was redrawn using coarser steps and slightly larger dots. The visual result is equivalent but the rendering is roughly 4× cheaper, noticeably reducing simulation lag at higher speeds.
+
+---
+
 # UAV-SAR — Recent progress and next steps
 
 Summary (commit c802a72):
