@@ -18,7 +18,7 @@
 				<Unit Class="TimeUnits">SECOND</Unit>
 			</Timeout>
 			<Rate Class="CodeUnitValue">
-				<Code><![CDATA[20]]></Code>
+				<Code><![CDATA[50]]></Code>
 				<Unit Class="RateUnits">PER_SECOND</Unit>
 			</Rate>
 			<Id>1778310007027</Id>

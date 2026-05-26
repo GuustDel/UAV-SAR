@@ -40,37 +40,22 @@ for (int row = 0; row < varGridRows; row++) {
 
 // 2. FOV cones — drawn in Main's coordinate space, scale matches sensing exactly
 for (UAV u : uavs) {
-	if (u.varCharging) continue;
-	
-    double cx          = u.getX() - ox;
-    double cy          = u.getY() - oy;
-    double centerAngle = u.getRotation();
-    double halfRad     = Math.toRadians(u.varFovHalfAngleDeg);
-    double rMax        = u.varSensorRange;
+    boolean visible = !u.varCharging;
+    u.cone1.setVisible(visible);
+    u.cone2.setVisible(visible);
+    u.cone3.setVisible(visible);
+    if (!visible) continue;
 
-		boolean detected = (u.varTargetConfidence >= u.varDetectionThreshold) && !u.varMovingToCharger && !u.varCharging;    java.awt.Color fill = detected
-        ? new java.awt.Color(255, 140, 0, 60)
-        : new java.awt.Color(100, 200, 255, 50);
-    java.awt.Color outline = detected
-        ? new java.awt.Color(255, 100, 0, 180)
-        : new java.awt.Color(50, 150, 255, 160);
+    boolean detected = (u.varTargetConfidence >= u.varDetectionThreshold)
+                       && !u.varMovingToCharger;
+    java.awt.Color c = detected
+        ? new java.awt.Color(255, 120, 0, 220)
+        : new java.awt.Color(80, 190, 255, 180);
 
-    // Fill slice
-    for (double a = centerAngle - halfRad; a <= centerAngle + halfRad; a += Math.toRadians(4)) {
-        for (double r = 0; r <= rMax; r += 4) {
-            pheromoneCanvas.fillCircle(cx + r * Math.cos(a), cy + r * Math.sin(a), 3, fill);
-        }
-    }
-    // Boundary rays
-    for (double r = 0; r <= rMax; r += 4) {
-        pheromoneCanvas.fillCircle(cx + r * Math.cos(centerAngle - halfRad), cy + r * Math.sin(centerAngle - halfRad), 3, outline);
-        pheromoneCanvas.fillCircle(cx + r * Math.cos(centerAngle + halfRad), cy + r * Math.sin(centerAngle + halfRad), 3, outline);
-    }
-    // Outer arc
-    for (double a = centerAngle - halfRad; a <= centerAngle + halfRad; a += Math.toRadians(2)) {
-        pheromoneCanvas.fillCircle(cx + rMax * Math.cos(a), cy + rMax * Math.sin(a), 3, outline);
-    }
-}
+    u.cone1.setColor(c);
+    u.cone2.setLineColor(c);
+    u.cone3.setColor(c);
+} 
 
 // 3. Candidate waypoints
 for (UAV u : uavs) {
