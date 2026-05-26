@@ -414,7 +414,7 @@
               StaticVariable="false">
 			<Type><![CDATA[boolean]]></Type>
 			<InitialValue Class="CodeValue">
-				<Code><![CDATA[false]]></Code>
+				<Code><![CDATA[true]]></Code>
 			</InitialValue>
 		</Properties>
 	</Variable>

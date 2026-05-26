@@ -84,7 +84,7 @@ varTargetY = seen ? bestY : -1;
 
 if (varEnableSenseDebug) {
     traceln(String.format("UAV %d sense t=%.1f conf=%.2f target=(%.1f,%.1f)",
-        getIndex(), time(), varTargetX, varTargetY));
+    getIndex(), time(), varTargetConfidence, varTargetX, varTargetY));
 }
 /*ALCODEEND*/}
 
