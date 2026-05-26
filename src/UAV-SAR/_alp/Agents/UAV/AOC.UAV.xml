@@ -630,11 +630,11 @@ if (varEnableSenseDebug) {
 				</Point>
 			</Points>
 			<IconOffset>35.0</IconOffset>
-			<Properties Source="1790000001001" Target="1790000001001" Trigger="rate">
+			<Properties Source="1790000001001" Target="1790000001001" Trigger="timeout">
 				<Action>fnSenseNow();
 fnSenseNowGrid();</Action>
 				<Timeout Class="CodeUnitValue">
-					<Code><![CDATA[1]]></Code>
+					<Code><![CDATA[0.5]]></Code>
 					<Unit Class="TimeUnits">SECOND</Unit>
 				</Timeout>
 				<Condition>true</Condition>
@@ -686,11 +686,11 @@ fnSenseNowGrid();</Action>
 				</Point>
 			</Points>
 			<IconOffset>35.0</IconOffset>
-			<Properties Source="1790000001003" Target="1790000001003" Trigger="rate">
+			<Properties Source="1790000001003" Target="1790000001003" Trigger="timeout">
 				<Action>fnSenseNow();
 fnSenseNowGrid();</Action>
 				<Timeout Class="CodeUnitValue">
-					<Code><![CDATA[1]]></Code>
+					<Code><![CDATA[0.5]]></Code>
 					<Unit Class="TimeUnits">SECOND</Unit>
 				</Timeout>
 				<Condition>true</Condition>
@@ -876,11 +876,11 @@ fnSenseNowGrid();</Action>
 				</Point>
 			</Points>
 			<IconOffset>80.0</IconOffset>
-			<Properties Source="1790000002001" Target="1790000002001" Trigger="rate">
+			<Properties Source="1790000002001" Target="1790000002001" Trigger="timeout">
 				<Action>fnSenseNow();
 fnSenseNowGrid();</Action>
 				<Timeout Class="CodeUnitValue">
-					<Code><![CDATA[1]]></Code>
+					<Code><![CDATA[0.5]]></Code>
 					<Unit Class="TimeUnits">SECOND</Unit>
 				</Timeout>
 				<Condition>true</Condition>
@@ -932,13 +932,13 @@ fnSenseNowGrid();</Action>
 				</Point>
 			</Points>
 			<IconOffset>45.0</IconOffset>
-			<Properties Source="1778334608116" Target="1778334608116" Trigger="rate">
+			<Properties Source="1778334608116" Target="1778334608116" Trigger="timeout">
 				<Action>varBatteryLevel = Math.max(0, varBatteryLevel - varBatteryDepletionRate * 0.25);
 if (batteryText != null) {
     batteryText.setText(String.format("%.0f%%", varBatteryLevel));
 }</Action>
 				<Timeout Class="CodeUnitValue">
-					<Code><![CDATA[1]]></Code>
+					<Code><![CDATA[0.5]]></Code>
 					<Unit Class="TimeUnits">SECOND</Unit>
 				</Timeout>
 				<Condition>true</Condition>
@@ -1032,13 +1032,13 @@ if (batteryText != null) {
 				</Point>
 			</Points>
 			<IconOffset>45.0</IconOffset>
-			<Properties Source="1778334676253" Target="1778334676253" Trigger="rate">
+			<Properties Source="1778334676253" Target="1778334676253" Trigger="timeout">
 				<Action>varBatteryLevel = Math.min(100, varBatteryLevel + varChargingRate * 0.5);
 if (batteryText != null) {
 	batteryText.setText(String.format("%.0f%%", varBatteryLevel));
 }</Action>
 				<Timeout Class="CodeUnitValue">
-					<Code><![CDATA[1]]></Code>
+					<Code><![CDATA[0.5]]></Code>
 					<Unit Class="TimeUnits">SECOND</Unit>
 				</Timeout>
 				<Condition>true</Condition>
@@ -1522,11 +1522,11 @@ varReturnToLastLocation = true;</Action>
 				</Point>
 			</Points>
 			<IconOffset>50.0</IconOffset>
-			<Properties Source="1779701433360" Target="1779701433360" Trigger="rate">
+			<Properties Source="1779701433360" Target="1779701433360" Trigger="timeout">
 				<Action>fnSenseNow();
 fnSenseNowGrid();</Action>
 				<Timeout Class="CodeUnitValue">
-					<Code><![CDATA[1]]></Code>
+					<Code><![CDATA[0.5]]></Code>
 					<Unit Class="TimeUnits">SECOND</Unit>
 				</Timeout>
 				<Condition>true</Condition>
@@ -1709,7 +1709,7 @@ fnSenseNowGrid();</Action>
 				</Point>
 			</Points>
 			<IconOffset>100.0</IconOffset>
-			<Properties Source="1779711402340" Target="1779711402340" Trigger="rate">
+			<Properties Source="1779711402340" Target="1779711402340" Trigger="timeout">
 				<Action>if (!varMovingToCharger &amp;&amp; !varCharging) {
     varBatteryLevel = Math.max(0, varBatteryLevel - varBatteryDepletionRate * 0.5);
     if (batteryText != null) batteryText.setText(String.format("%.0f%%", varBatteryLevel));
