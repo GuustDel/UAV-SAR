@@ -312,11 +312,6 @@ if (varEnableSenseDebug) {
 }
 /*ALCODEEND*/}
 
-double function()
-{/*ALCODESTART::1778331635115*/
-
-/*ALCODEEND*/}
-
 double fnConfirmVictim()
 {/*ALCODESTART::1778423980875*/
 if (varTargetX >= 0 && varTargetY >= 0) {

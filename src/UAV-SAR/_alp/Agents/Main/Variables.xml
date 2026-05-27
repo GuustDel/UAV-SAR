@@ -351,15 +351,15 @@
               StaticVariable="false">
 			<Type><![CDATA[double]]></Type>
 			<InitialValue Class="CodeValue">
-				<Code><![CDATA[200.0]]></Code>
+				<Code><![CDATA[100.0]]></Code>
 			</InitialValue>
 		</Properties>
 	</Variable>
-	<Variable Class="Parameter">
-		<Id>1778832274427</Id>
+	<Variable Class="PlainVariable">
+		<Id>1779864575403</Id>
 		<Name><![CDATA[varSensorRange]]></Name>
 		<X>510</X>
-		<Y>920</Y>
+		<Y>1020</Y>
 		<Label>
 			<X>10</X>
 			<Y>0</Y>
@@ -367,27 +367,21 @@
 		<PublicFlag>false</PublicFlag>
 		<PresentationFlag>true</PresentationFlag>
 		<ShowLabel>true</ShowLabel>
-		<Properties SaveInSnapshot="true" ModificatorType="STATIC">
+		<Properties SaveInSnapshot="true"
+              Constant="false"
+              AccessType="public"
+              StaticVariable="false">
 			<Type><![CDATA[double]]></Type>
-			<UnitType>NONE</UnitType>
-			<SdArray>false</SdArray>
-			<DefaultValue Class="CodeValue">
+			<InitialValue Class="CodeValue">
 				<Code><![CDATA[100.0]]></Code>
-			</DefaultValue>
-			<ParameterEditor>
-				<Id>1778832274425</Id>
-				<EditorContolType>TEXT_BOX</EditorContolType>
-				<MinSliderValue>0</MinSliderValue>
-				<MaxSliderValue>100</MaxSliderValue>
-				<DelimeterType>NO_DELIMETER</DelimeterType>
-			</ParameterEditor>
+			</InitialValue>
 		</Properties>
 	</Variable>
 	<Variable Class="Parameter">
 		<Id>1778832333342</Id>
 		<Name><![CDATA[varAcoCandidateCount]]></Name>
 		<X>510</X>
-		<Y>940</Y>
+		<Y>920</Y>
 		<Label>
 			<X>10</X>
 			<Y>0</Y>
@@ -415,7 +409,7 @@
 		<Id>1778832354292</Id>
 		<Name><![CDATA[varAcoStepLength]]></Name>
 		<X>510</X>
-		<Y>960</Y>
+		<Y>940</Y>
 		<Label>
 			<X>10</X>
 			<Y>0</Y>
@@ -443,7 +437,7 @@
 		<Id>1778832377031</Id>
 		<Name><![CDATA[varAcoAlpha]]></Name>
 		<X>510</X>
-		<Y>980</Y>
+		<Y>960</Y>
 		<Label>
 			<X>10</X>
 			<Y>0</Y>
@@ -471,7 +465,7 @@
 		<Id>1778832391383</Id>
 		<Name><![CDATA[varAcoBeta]]></Name>
 		<X>510</X>
-		<Y>1000</Y>
+		<Y>980</Y>
 		<Label>
 			<X>10</X>
 			<Y>0</Y>
@@ -499,7 +493,7 @@
 		<Id>1778832407263</Id>
 		<Name><![CDATA[varSeed]]></Name>
 		<X>510</X>
-		<Y>1020</Y>
+		<Y>1000</Y>
 		<Label>
 			<X>10</X>
 			<Y>0</Y>

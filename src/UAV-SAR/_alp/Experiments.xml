@@ -57,9 +57,6 @@ try {
 		<UseFreeformParameters>false</UseFreeformParameters>
 		<NumberOfRuns>10</NumberOfRuns>
 		<FreeformParamValue>
-			<Id>1778832274427</Id>
-		</FreeformParamValue>
-		<FreeformParamValue>
 			<Id>1778832333342</Id>
 		</FreeformParamValue>
 		<FreeformParamValue>
@@ -75,42 +72,29 @@ try {
 			<Id>1778832407263</Id>
 		</FreeformParamValue>
 		<RangeVariationParamValue>
-			<Id>1778832274427</Id>
-			<Type><![CDATA[RANGE]]></Type>
-			<From Class="CodeValue">
-				<Code><![CDATA[100]]></Code>
-			</From>
-			<To Class="CodeValue">
-				<Code><![CDATA[100]]></Code>
-			</To>
-			<Step Class="CodeValue">
-				<Code><![CDATA[25]]></Code>
-			</Step>
-		</RangeVariationParamValue>
-		<RangeVariationParamValue>
 			<Id>1778832333342</Id>
 			<Type><![CDATA[RANGE]]></Type>
 			<Expression Class="CodeValue">
 				<Code><![CDATA[20]]></Code>
 			</Expression>
 			<From Class="CodeValue">
-				<Code><![CDATA[12]]></Code>
+				<Code><![CDATA[24]]></Code>
 			</From>
 			<To Class="CodeValue">
-				<Code><![CDATA[36]]></Code>
+				<Code><![CDATA[24]]></Code>
 			</To>
 			<Step Class="CodeValue">
-				<Code><![CDATA[6]]></Code>
+				<Code><![CDATA[1]]></Code>
 			</Step>
 		</RangeVariationParamValue>
 		<RangeVariationParamValue>
 			<Id>1778832354292</Id>
 			<Type><![CDATA[RANGE]]></Type>
 			<From Class="CodeValue">
-				<Code><![CDATA[50]]></Code>
+				<Code><![CDATA[25]]></Code>
 			</From>
 			<To Class="CodeValue">
-				<Code><![CDATA[150]]></Code>
+				<Code><![CDATA[200]]></Code>
 			</To>
 			<Step Class="CodeValue">
 				<Code><![CDATA[25]]></Code>
@@ -120,13 +104,13 @@ try {
 			<Id>1778832377031</Id>
 			<Type><![CDATA[RANGE]]></Type>
 			<From Class="CodeValue">
-				<Code><![CDATA[0.5]]></Code>
+				<Code><![CDATA[1.0]]></Code>
 			</From>
 			<To Class="CodeValue">
-				<Code><![CDATA[2.5]]></Code>
+				<Code><![CDATA[1.0]]></Code>
 			</To>
 			<Step Class="CodeValue">
-				<Code><![CDATA[0.5]]></Code>
+				<Code><![CDATA[1]]></Code>
 			</Step>
 		</RangeVariationParamValue>
 		<RangeVariationParamValue>
@@ -136,10 +120,10 @@ try {
 				<Code><![CDATA[1.0]]></Code>
 			</From>
 			<To Class="CodeValue">
-				<Code><![CDATA[4.0]]></Code>
+				<Code><![CDATA[1.0]]></Code>
 			</To>
 			<Step Class="CodeValue">
-				<Code><![CDATA[0.5]]></Code>
+				<Code><![CDATA[1]]></Code>
 			</Step>
 		</RangeVariationParamValue>
 		<RangeVariationParamValue>
@@ -149,10 +133,10 @@ try {
 				<Code><![CDATA[40]]></Code>
 			</Expression>
 			<From Class="CodeValue">
-				<Code><![CDATA[40]]></Code>
+				<Code><![CDATA[1]]></Code>
 			</From>
 			<To Class="CodeValue">
-				<Code><![CDATA[50]]></Code>
+				<Code><![CDATA[30]]></Code>
 			</To>
 			<Step Class="CodeValue">
 				<Code><![CDATA[1]]></Code>
@@ -162,8 +146,8 @@ try {
 			<StopOption>Stop at specified time</StopOption>
 			<InitialDate>1776816000000</InitialDate>
 			<InitialTime>0.0</InitialTime>
-			<FinalDate>1779408000000</FinalDate>
-			<FinalTime>100.0</FinalTime>
+			<FinalDate>1776816101000</FinalDate>
+			<FinalTime>101.0</FinalTime>
 		</ModelTimeProperties>
 		<PresentationProperties>
 			<EnableZoomAndPanning>true</EnableZoomAndPanning>
@@ -221,9 +205,6 @@ try {
 			</Text>
 		</Presentation>
 		<Parameters>
-			<Parameter>
-				<ParameterName>varSensorRange</ParameterName>
-			</Parameter>
 			<Parameter>
 				<ParameterName>varAcoCandidateCount</ParameterName>
 			</Parameter>

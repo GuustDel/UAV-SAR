@@ -29,7 +29,7 @@
 				<Unit Class="TimeUnits">SECOND</Unit>
 			</OccurrenceTime>
 			<RecurrenceCode Class="CodeUnitValue">
-				<Code><![CDATA[0.02]]></Code>
+				<Code><![CDATA[10]]></Code>
 				<Unit Class="TimeUnits">SECOND</Unit>
 			</RecurrenceCode>
 			<Condition>false</Condition>
@@ -71,5 +71,6 @@
 			<Condition>false</Condition>
 		</Properties>
 		<Action xmlns:al="http://anylogic.com"/>
+		<Logging>false</Logging>
 	</Event>
 </Events>
