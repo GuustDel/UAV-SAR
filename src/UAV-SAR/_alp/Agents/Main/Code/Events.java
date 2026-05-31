@@ -1,5 +1,6 @@
 void eventDrawPheromones()
 {/*ALCODESTART::1778310007029*/
+if (!varEnablePheromoneRendering) return;
 if (pheromoneCanvas == null) return;
 pheromoneCanvas.clear();
 

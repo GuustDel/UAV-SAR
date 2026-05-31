@@ -28,3 +28,19 @@ Total configurations: `3 * 2 * 2 * 2 = 24`
 
 With `runs_per_config = 30`, total runs are:
 - `24 * 30 = 720`
+
+## Full-Factorial ACO Sweep
+
+File: `full_factorial_aco.json`
+
+- `varAcoCandidateCount`: `12, 18, 24, 30, 36`
+- `varAcoStepLength`: `50, 75, 100, 125, 150`
+- `varAcoAlpha`: `0.5, 1.0, 1.5, 2.0, 2.5`
+- `varAcoBeta`: `1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0`
+
+Recommended replication:
+- 3 seeds for validation
+- 10 seeds for the full paper run
+
+Total full-run size:
+- `5 * 5 * 5 * 7 * 10 = 8750` runs

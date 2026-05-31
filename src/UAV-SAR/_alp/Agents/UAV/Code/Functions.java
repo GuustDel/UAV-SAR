@@ -155,9 +155,11 @@ for (int row = rowMin; row <= rowMax; row++) {
 
 void fnPickWaypoint()
 {/*ALCODESTART::1780000005010*/
-traceln("UAV " + getIndex() + " fnPickWaypoint: returnFlag=" + varReturnToLastLocation +
-    ", lastCritical=(" + varLastCriticalX + "," + varLastCriticalY + 
-    "), localSearch=" + varLocalSearchMode);
+if (varEnableSenseDebug) {
+    traceln("UAV " + getIndex() + " fnPickWaypoint: returnFlag=" + varReturnToLastLocation +
+        ", lastCritical=(" + varLastCriticalX + "," + varLastCriticalY + 
+        "), localSearch=" + varLocalSearchMode);
+}
 
 int n = Math.max(1, varAcoCandidateCount);
 double step = varCurrentStepLength;
@@ -283,7 +285,21 @@ if (chosenDist < minMoveDist) {
             bestIdx = i;
         }
     }
-    if (bestIdx >= 0) chosenIdx = bestIdx;
+    if (bestIdx >= 0) {
+        chosenIdx = bestIdx;
+    } else {
+        // Fallback: take the farthest sampled candidate to avoid near-zero move loops.
+        int farIdx = chosenIdx;
+        double farDist = chosenDist;
+        for (int i = 0; i < n; i++) {
+            double d = Math.hypot(candX[i] - getX(), candY[i] - getY());
+            if (d > farDist) {
+                farDist = d;
+                farIdx = i;
+            }
+        }
+        chosenIdx = farIdx;
+    }
 }
 
 if (varLocalSearchMode) {

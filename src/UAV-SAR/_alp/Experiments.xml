@@ -34,6 +34,7 @@ synchronized(this.getClass()) {
 }
 
 System.setProperty("uavsar.exp.dir", expDir);
+System.setProperty("uavsar.disable.phero.render", "true");
 
 try {
     java.io.FileWriter fw = new java.io.FileWriter(expDir + "/run_summary.csv", false);

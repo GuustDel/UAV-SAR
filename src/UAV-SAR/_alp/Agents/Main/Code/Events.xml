@@ -29,7 +29,7 @@
 				<Unit Class="TimeUnits">SECOND</Unit>
 			</OccurrenceTime>
 			<RecurrenceCode Class="CodeUnitValue">
-				<Code><![CDATA[10]]></Code>
+				<Code><![CDATA[5.0]]></Code>
 				<Unit Class="TimeUnits">SECOND</Unit>
 			</RecurrenceCode>
 			<Condition>false</Condition>
