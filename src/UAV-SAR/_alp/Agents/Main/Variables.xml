@@ -351,7 +351,29 @@
               StaticVariable="false">
 			<Type><![CDATA[double]]></Type>
 			<InitialValue Class="CodeValue">
-				<Code><![CDATA[100.0]]></Code>
+				<Code><![CDATA[200.0]]></Code>
+			</InitialValue>
+		</Properties>
+	</Variable>
+	<Variable Class="PlainVariable">
+		<Id>1781000001001</Id>
+		<Name><![CDATA[varEnablePheromoneRendering]]></Name>
+		<X>30</X>
+		<Y>890</Y>
+		<Label>
+			<X>10</X>
+			<Y>0</Y>
+		</Label>
+		<PublicFlag>false</PublicFlag>
+		<PresentationFlag>true</PresentationFlag>
+		<ShowLabel>true</ShowLabel>
+		<Properties SaveInSnapshot="true"
+              Constant="false"
+              AccessType="public"
+              StaticVariable="false">
+			<Type><![CDATA[boolean]]></Type>
+			<InitialValue Class="CodeValue">
+				<Code><![CDATA[!java.lang.Boolean.getBoolean("uavsar.disable.phero.render")]]></Code>
 			</InitialValue>
 		</Properties>
 	</Variable>

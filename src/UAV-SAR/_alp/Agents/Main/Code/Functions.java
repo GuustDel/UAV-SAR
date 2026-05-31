@@ -108,14 +108,6 @@ varPheromoneTime[idx] = time();
 
 void fnMarkVictimFound(double x,double y,int uavIndex)
 {/*ALCODESTART::1778423584943*/
-// Skip if we already tagged a victim near this location
-for (Victims v : victims) {
-    if (!v.varIsFound) continue;
-    double dx = v.getX() - x;
-    double dy = v.getY() - y;
-    if (Math.sqrt(dx*dx + dy*dy) < 15) return;
-}
-
 // Find the nearest unfound victim to tag
 Victims found = null;
 double bestDist = Double.MAX_VALUE;
@@ -143,17 +135,22 @@ if (found != null) {
 
 // Reset pheromone in radius around found victim
 double radius = 175;
-for (int row = 0; row < varGridRows; row++) {
-    for (int col = 0; col < varGridCols; col++) {
-        double cellCx = varGridOriginX + (col + 0.5) * varGridCellSize;
-        double cellCy = varGridOriginY + (row + 0.5) * varGridCellSize;
-        double dist = Math.sqrt((cellCx - x)*(cellCx - x) + (cellCy - y)*(cellCy - y));
-        if (dist <= radius) {
-            int idx = row * varGridCols + col;
-            varPheromoneGrid[idx] = 0;
-            varPheromoneTime[idx] = time();
-        }
+int colMin = Math.max(0, (int)Math.floor((x - radius - varGridOriginX) / varGridCellSize));
+int colMax = Math.min(varGridCols - 1, (int)Math.floor((x + radius - varGridOriginX) / varGridCellSize));
+int rowMin = Math.max(0, (int)Math.floor((y - radius - varGridOriginY) / varGridCellSize));
+int rowMax = Math.min(varGridRows - 1, (int)Math.floor((y + radius - varGridOriginY) / varGridCellSize));
+
+for (int row = rowMin; row <= rowMax; row++) {
+  for (int col = colMin; col <= colMax; col++) {
+    double cellCx = varGridOriginX + (col + 0.5) * varGridCellSize;
+    double cellCy = varGridOriginY + (row + 0.5) * varGridCellSize;
+    double dist = Math.sqrt((cellCx - x)*(cellCx - x) + (cellCy - y)*(cellCy - y));
+    if (dist <= radius) {
+      int idx = row * varGridCols + col;
+      varPheromoneGrid[idx] = 0;
+      varPheromoneTime[idx] = time();
     }
+  }
 }
 
 // Convergence: all victims found
