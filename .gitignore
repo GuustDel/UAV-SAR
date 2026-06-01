@@ -56,3 +56,22 @@ src/UAV-SAR/UAV-SAR-fixed.alpx
 src/UAV-SAR/UAV-SAR - Backup_working080526.alpx
 src/UAV-SAR/UAV-SAR.alp.autosave
 MEMORY.md
+
+# LaTeX build artifacts and generated analysis outputs (paper/UAV_SAR)
+paper/UAV_SAR/*.aux
+paper/UAV_SAR/*.bbl
+paper/UAV_SAR/*.blg
+paper/UAV_SAR/*.out
+paper/UAV_SAR/*.synctex.gz
+paper/UAV_SAR/*.pdf
+paper/UAV_SAR/grouped_stats.csv
+paper/UAV_SAR/top20_full_convergence.csv
+paper/UAV_SAR/heatmap_sensor_candidates.png
+paper/UAV_SAR/heatmap_sensor_step.png
+paper/UAV_SAR/marginal_convergence_rate.png
+paper/UAV_SAR/marginal_convergence_time.png
+paper/UAV_SAR/timeout_breakdown.png
+paper/UAV_SAR/victim_discovery_order.png
+
+# Local generated experiment run outputs
+src/UAV-SAR/experiments/

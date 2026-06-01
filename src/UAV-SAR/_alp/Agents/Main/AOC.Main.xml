@@ -5,6 +5,21 @@
 	<StartupCode><![CDATA[// Seed first so all randomness in this run is reproducible
 getDefaultRandomGenerator().setSeed(varSeed);
 
+// Trace run start for experiment troubleshooting
+traceln("RUN_START seed=" + varSeed + " sensorRange=" + varSensorRange + " acoCandidateCount=" + varAcoCandidateCount + " acoStepLength=" + varAcoStepLength + " acoAlpha=" + varAcoAlpha + " acoBeta=" + varAcoBeta);
+
+// Also append a persistent trace to the experiment folder so batch runs record starts
+try {
+	String ed = System.getProperty("uavsar.exp.dir", "experiments");
+	synchronized(System.class) {
+		java.io.FileWriter fw = new java.io.FileWriter(ed + "/run_trace.log", true);
+		fw.write("RUN_START seed=" + varSeed + " sensorRange=" + varSensorRange + " acoCandidateCount=" + varAcoCandidateCount + " acoStepLength=" + varAcoStepLength + " acoAlpha=" + varAcoAlpha + " acoBeta=" + varAcoBeta + "\n");
+		fw.close();
+	}
+} catch (Exception e) {
+	traceln("run_trace write error (start): " + e.getMessage());
+}
+
 // Push experiment parameters down to every UAV
 for (UAV u : uavs) {
 	u.varSensorRange       = varSensorRange;
