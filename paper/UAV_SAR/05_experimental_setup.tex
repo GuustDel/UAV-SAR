@@ -1,0 +1,19 @@
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Experimental Setup}
+% ─────────────────────────────────────────────────────────────────────────────
+
+To characterize how search performance responds to the model's key behavioral parameters, we run two complementary experiments using AnyLogic's built-in sweep infrastructure, with sensor range fixed at 5\,m. The first sweeps all four parameters in a full factorial grid to expose their joint interactions. The second holds three parameters at their defaults and varies only one at a time, isolating the individual effect of each parameter in turn.
+
+\textbf{Candidate count} ($n$) controls the angular resolution of the waypoint selection ring: more candidates offer a finer-grained directional choice and a smoother score distribution, at the cost of additional scoring operations per planning step. We vary $n \in \{12, 18, 24, 30, 36\}$.
+
+\textbf{Step length} ($d$) sets the radius of the candidate circle in meters, determining how far the UAV moves at each planning step. Longer steps increase the rate of area coverage but reduce spatial resolution and the ability to target specific nearby cells precisely. We vary $d \in \{2.5, 3.75, 5.0, 6.25, 7.5\}$\,m.
+
+\textbf{Pheromone exponent} ($\alpha$) controls the weight of the pheromone repulsion term in Equation~\eqref{eq:aco}. A higher value makes the scoring function more sensitive to pheromone differences, producing stronger and more decisive avoidance of recently covered cells. We vary $\alpha \in \{0.5, 1.0, 1.5, 2.0, 2.5\}$.
+
+\textbf{Staleness exponent} ($\beta$) controls the weight of the cell-age term. A higher value gives stronger preference to cells that have not been sensed recently. We vary $\beta \in \{1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0\}$. In practice, because our pheromone evaporation rate is kept very low and victims do not move, recently explored cells never become genuinely stale and $\beta$ has limited impact on outcomes.
+
+We evaluate each parameter combination across 10 independent random seeds. The seed determines both the victim placement (GMM sampling) and the stochastic choices in waypoint selection. Replicating across seeds ensures that observed performance differences reflect genuine parameter sensitivity rather than idiosyncrasies of a particular victim configuration.
+
+We record two primary metrics per run. \textbf{Convergence time} is the simulation time at which the last victim is confirmed found. \textbf{Convergence rate} is the fraction of runs for a given parameter configuration in which all victims are found before the 200-second safety-stop limit. Runs that time out are recorded with an undefined convergence time and reduce the convergence rate of their configuration. The dual-metric approach distinguishes configurations that are consistently fast from those that succeed on only some seeds, an important distinction for evaluating robustness.
+
+The experimental pipeline is fully automated. Each run writes its result incrementally to a CSV log file in a numbered experiment folder, allowing runs to proceed in parallel without coordination beyond synchronized file writes. When all runs complete, a Python post-processing script picks up the CSV files automatically and produces the full set of visualizations without manual intervention. A snapshot of the running simulation, illustrating the pheromone grid, UAV sensor cones, and victim locations, is shown in Figure~\ref{fig:simulation}.

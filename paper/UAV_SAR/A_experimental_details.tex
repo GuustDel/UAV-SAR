@@ -1,0 +1,68 @@
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Experimental Details}
+% ─────────────────────────────────────────────────────────────────────────────
+
+All distances are in metres.
+
+\paragraph{Environment and Main agent.}
+Table~\ref{tab:params_main} lists the fixed environment and victim-placement parameters.
+
+\begin{table}[h]
+\centering
+\caption{Environment and Main agent parameters.}
+\label{tab:params_main}
+\begin{tabular}{lll}
+\toprule
+Parameter & Value & Notes \\
+\midrule
+Search area            & 45\,$\times$\,25\,m         & \\
+UAV count              & 2                           & \\
+Victim count           & 5                           & \\
+Pheromone grid         & 90\,$\times$\,50 cells      & 0.5\,m/cell \\
+Evaporation rate $\rho$& 0.01\,s$^{-1}$              & Lazy exponential decay \\
+GMM clusters           & 2                           & \\
+GMM weights            & \{0.2,\;0.5\}               & Normalised \\
+GMM std dev (cluster 1)& 3.5\,$\times$\,3.5\,m       & \\
+GMM std dev (cluster 2)& 1.5\,$\times$\,1.5\,m       & \\
+GMM boundary margin    & 1.5\,m                      & \\
+Safety timeout         & 100\,s                      & \texttt{varMaxSimTime} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{UAV agent.}
+Table~\ref{tab:params_uav} lists the UAV-level parameters. Parameters marked
+\emph{swept} are varied in the experiments; all others are fixed at the values shown.
+
+\begin{table}[h]
+\centering
+\caption{UAV agent parameters (defaults). Swept parameters are varied in experiments.}
+\label{tab:params_uav}
+\begin{tabular}{lll}
+\toprule
+Parameter & Value & Notes \\
+\midrule
+Speed                         & 0.05\,m/s                 & \\
+Sensor range                  & 5.0\,m                    & \\
+FOV half-angle                & 45$^\circ$                & \\
+Detection threshold           & 0.7                       & \\
+Pheromone deposition rate     & 2.0 per cell              & \\
+Staleness constant $T_\text{stale}$ & 60\,s             & \\
+Candidate count $n$           & 24                        & \emph{swept} \\
+Step length $d$               & 4.0\,m                    & \emph{swept} \\
+ACO exponent $\alpha$         & 1.0                       & \emph{swept} \\
+ACO exponent $\beta$          & 2.0                       & \emph{swept} \\
+UAV avoidance radius          & 9.0\,m                    & Score penalty zone \\
+Min UAV separation            & 10.0\,m                   & Hard avoidance \\
+Adaptive step enabled         & false                     & Disabled in step sweep \\
+Adaptive step threshold       & 1.0 (pheromone)           & Triggers scale-up \\
+Adaptive step max multiplier  & 2.0                       & Maximum $M$ \\
+Local search radius           & 8.75\,m                   & Post-confirmation bias \\
+Battery initial level         & 100\,\%                   & \\
+Battery depletion rate        & 0.5\,\%/s                 & Effective in-flight rate \\
+Battery return threshold      & 20\,\%                    & Triggers move-to-charger \\
+Charging rate                 & 10\,\%/s                  & At charging station \\
+Charger location              & (44,\;23)\,m              & Bottom-right corner \\
+\bottomrule
+\end{tabular}
+\end{table}
