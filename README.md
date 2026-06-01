@@ -1,5 +1,30 @@
 # New — 25/5
 
+## New — 01/06 (Experiment log update)
+
+**Validation sweep completed (3 seeds)**
+Validation run folder: `src/UAV-SAR/experiments/20260601003108535/`
+
+- Expected runs: `3 * 875 = 2625`
+- Observed `run_summary.csv` rows: `2625`
+- Converged runs: `2516` (`95.85%`)
+- Timeouts: `109`
+
+**Full factorial sweep completed (10 seeds)**
+Full run folder: `src/UAV-SAR/experiments/20260601003651074/`
+
+- Expected runs: `10 * 875 = 8750`
+- Observed `run_summary.csv` rows: `8750`
+- Converged runs: `8211` (`93.84%`)
+- Timeouts: `539`
+
+Analysis outputs were generated under each run folder in `analyses/`.
+Additional presentation-focused figures for the full run were generated to:
+
+- `src/UAV-SAR/experiments/20260601003651074/analyses/presentation/`
+- `paper/UAV_SAR/img/experiments/`
+
+
 **Startup dispersal**
 UAVs now spread out before searching. Each UAV is assigned a starting waypoint (evenly spaced across the release zone) and must fly there before entering Explore. Sensing is active during dispersal so a victim spotted on the way in immediately switches the UAV to Exploit.
 

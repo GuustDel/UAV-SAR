@@ -199,5 +199,18 @@ try {
   } catch (Exception e) {
     traceln("run_summary write error: " + e.getMessage());
   }
+  // Trace run end for experiment-level troubleshooting
+  traceln("RUN_END seed=" + varSeed + " sensorRange=" + varSensorRange + " acoCandidateCount=" + varAcoCandidateCount + " acoStepLength=" + varAcoStepLength + " acoAlpha=" + varAcoAlpha + " acoBeta=" + varAcoBeta + " converged=" + varAllVictimsFound + " found=" + varFoundVictimCount);
+  // Also append persistent RUN_END to run_trace.log
+  try {
+      String ed = System.getProperty("uavsar.exp.dir", "experiments");
+      synchronized(System.class) {
+          java.io.FileWriter fw2 = new java.io.FileWriter(ed + "/run_trace.log", true);
+          fw2.write("RUN_END seed=" + varSeed + " sensorRange=" + varSensorRange + " acoCandidateCount=" + varAcoCandidateCount + " acoStepLength=" + varAcoStepLength + " acoAlpha=" + varAcoAlpha + " acoBeta=" + varAcoBeta + " converged=" + varAllVictimsFound + " found=" + varFoundVictimCount + "\n");
+          fw2.close();
+      }
+  } catch (Exception e) {
+      traceln("run_trace write error (end): " + e.getMessage());
+  }
 /*ALCODEEND*/}
 

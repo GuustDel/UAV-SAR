@@ -1,0 +1,29 @@
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Background}
+% ─────────────────────────────────────────────────────────────────────────────
+
+\subsection{Agent-Based Modelling and Multi-Agent Systems}
+
+Agent-based modelling (ABM) studies complex systems by simulating the behaviors and interactions of individual autonomous agents, allowing emergent macro-level phenomena to arise from micro-level rules~\citep{ar:Macal2016,ar:GallegatiEtAl2024}. ABM is particularly well suited to domains where top-down analytical models fail: wherever emergence, adaptation, or heterogeneous populations play a central role. Reynolds' boids model~\citep{inpr:Reynolds1987} offered an early and influential demonstration of this principle: three local steering rules (separation, alignment, and cohesion) produce globally coherent flocking behavior that is visually indistinguishable from that of real birds.
+
+In the context of SAR, ABM provides a natural framework for studying how simple agent-level behavioral rules translate into collective search coverage, and how sensitive that translation is to the specific parameter choices made by the system designer.
+
+\subsection{Belief-Desire-Intention Architecture}
+
+The BDI model formalizes the internal state of a rational agent as a triple. Beliefs represent what the agent knows about the world, desires represent the objectives it seeks to achieve, and intentions represent the plans it has committed to executing~\citep{bk:Wooldridge2009}. BDI agents are deliberative. They reason about beliefs to select intentions consistent with their desires. They are also reactive, meaning new perceptions update beliefs and changing circumstances can revise intentions.
+
+Full BDI implementations can be architecturally complex. Our model adopts a distilled BDI perspective, encoding the essential belief-update and intention-selection logic directly in a hierarchical statechart. Sensor readings form the belief base, coverage of the search space is the standing desire, and the current commitment to a specific movement mode (exploring, exploiting, or charging) constitutes the intention. Every belief update and intention switch is a named, visible transition in the chart.
+
+\subsection{Ant Colony Optimization and Stigmergy}
+
+Stigmergy is a form of indirect coordination in which agents communicate through persistent modifications to a shared environment rather than through direct messaging~\citep{bk:Bonabeau1999}. ACO operationalizes this principle: artificial ants deposit pheromone on paths they traverse, biasing future agents toward high-pheromone routes through a positive feedback loop~\citep{bk:Dorigo2004}.
+
+Classical ACO targets optimization problems where convergence toward a small set of high-quality solutions is the goal. Search coverage requires the opposite behavior: divergence. An agent drawn back toward a high-pheromone cell wastes effort on already-searched ground. Our model inverts the ACO reinforcement signal, using pheromone as a coverage record that repels rather than attracts. This inversion preserves the full mathematical apparatus of ACO (pheromone deposition, exponential evaporation, and probabilistic selection based on pheromone levels) while reversing its behavioral semantics. The result is a dispersion mechanism rather than a convergence mechanism.
+
+% ─────────────── full-width statechart figure ─────────────────────────────
+\begin{figure*}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{img/statechart.png}
+    \caption{The BDI-inspired UAV statechart. The three primary modes, \textsc{Startup}, \textsc{Explore}, and \textsc{Exploit}, are shown with their internal sub-states and transitions. \textsc{ChargingStation} can be entered from either \textsc{Explore} or \textsc{Exploit} on a low-battery condition. The concurrent \textsc{BatteryDischarge} state (bottom right) runs orthogonally to all other modes.}
+    \label{fig:statechart}
+\end{figure*}

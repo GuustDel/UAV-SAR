@@ -1,0 +1,77 @@
+\documentclass[10pt,a4paper,twocolumn]{article}
+
+% Packages (alphabetical order)
+\usepackage{amsmath,amssymb}
+\usepackage{balance}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage[margin=17mm]{geometry}
+\usepackage{graphicx}
+	\graphicspath{
+		{./}
+		{../graphics/}
+	}
+\usepackage{hyperref}
+\hypersetup{
+  	bookmarks=true,
+    unicode=false,
+    pdftoolbar=true,
+    pdfmenubar=true,
+    pdffitwindow=true,
+    pdftitle={Multi-agent systems},
+    pdfauthor={},
+    pdfsubject={},
+    pdfnewwindow=true,
+    pdfkeywords={},
+    colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+    filecolor=blue,
+    urlcolor=blue
+}
+\usepackage{lipsum}
+\usepackage{microtype}
+\usepackage[numbers,sort&compress]{natbib}
+	\bibliographystyle{apalike2}
+
+% Title information
+\title{Stigmergic Coordination in UAV Search and Rescue:\\A Behavioral Sensitivity Analysis}
+\author{
+  Arthur Schauwvlieghe \\
+  {\small KU Leuven} \\
+  \texttt{arthur.schauwvlieghe@student.kuleuven.be}
+  \and
+  Guust Delbaere \\
+  {\small KU Leuven} \\
+  \texttt{guust.delbaere@student.kuleuven.com}
+  \and
+  Harun Kalkanci \\
+  {\small KU Leuven} \\
+  \texttt{harun.kalkanci@student.kuleuven.be}
+}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Efficient search and rescue in large, unknown environments remains a fundamental challenge for autonomous systems. We present a multi-agent model of UAV-based search and rescue that combines Belief-Desire-Intention (BDI)-inspired statechart reasoning with a reversed Ant Colony Optimization (ACO) mechanism. Rather than following pheromone trails toward rewarding locations, agents treat pheromone as a collective spatial memory of recently covered ground and actively avoid it. A secondary stigmergic signal (victim detection) acts as a positive attractor, creating a dynamic Explore--Exploit balance that requires no centralized scheduling. We encode agent behavior in a hierarchical statechart that makes every behavioral transition explicit and auditable, enabling meaningful sensitivity analysis. We describe the full implementation in AnyLogic, including the victim placement model, pheromone grid, and battery management logic, and present an automated experimental pipeline for parameter sweeps. Our results characterize how the ACO scoring exponents, step length, and candidate count jointly shape the convergence speed and reliability of the swarm.
+\end{abstract}
+
+\input{01_introduction}
+\input{02_background}
+\input{03_design_rationale}
+\input{04_system_model}
+\input{05_experimental_setup}
+\input{06_results}
+\input{07_conclusion}
+
+\balance
+\bibliography{Bib.bib}
+
+\clearpage
+\appendix
+\onecolumn
+\input{A_experimental_details}
+
+\end{document}

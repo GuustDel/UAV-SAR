@@ -147,8 +147,8 @@ try {
 			<StopOption>Stop at specified time</StopOption>
 			<InitialDate>1776816000000</InitialDate>
 			<InitialTime>0.0</InitialTime>
-			<FinalDate>1776816101000</FinalDate>
-			<FinalTime>101.0</FinalTime>
+			<FinalDate>1776816201000</FinalDate>
+			<FinalTime>201.0</FinalTime>
 		</ModelTimeProperties>
 		<PresentationProperties>
 			<EnableZoomAndPanning>true</EnableZoomAndPanning>
