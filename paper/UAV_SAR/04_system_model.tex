@@ -2,26 +2,26 @@
 \section{System Model}
 % ─────────────────────────────────────────────────────────────────────────────
 
+We implement the model in AnyLogic as three interacting agent types. This section covers the simulation environment and the Victim and Main agents, before turning to the UAV agent that carries the search behavior.
+
 \subsection{Simulation Environment}
 
-The simulation environment is a two-dimensional continuous space of $45 \times 25$ meters, representing a bounded search area. We overlay the space with a shared pheromone grid of $90 \times 50$ cells, each covering a $0.5 \times 0.5$ meter area. This grid is the primary medium of stigmergic coordination: it accumulates pheromone from all UAVs and each UAV queries it at every planning step. By default, the simulation runs two UAV agents and five Victim agents. A charging station sits at the bottom right of the search area.
+The simulation environment is a two-dimensional continuous space of $45 \times 25$ meters. We overlay it with a shared pheromone grid of $90 \times 50$ cells, each covering a $0.5 \times 0.5$ meter area, which is the primary medium of stigmergic coordination. By default, the simulation runs two UAV agents and five Victim agents. A charging station sits at the bottom right of the search area.
 
 \subsection{Victim Agent}
 
-The Victim agent is a passive data container with no behavioral logic of its own. Each instance holds a spatial position assigned at initialization by the Main agent, and three state variables: a flag indicating whether the victim has been found, the index of the discovering UAV, and the simulation time of discovery. The Victim agent takes no actions and responds to no events. All victim logic (placement, discovery marking, and logging) runs in the Main agent, while the UAV agent handles sensing and confirmation.
+The Victim agent is a passive data container. Each instance holds a position assigned at initialization by the Main agent, plus three state variables: a flag indicating whether the victim has been found, the index of the discovering UAV, and the time of discovery. All victim logic runs in the Main agent, while the UAV handles sensing and confirmation.
 
 \subsection{Main Agent}
 
-The Main agent serves as the simulation orchestrator. At initialization it performs three tasks: seeding the random number generator for full reproducibility, computing an evenly-spaced dispersal position for each UAV along the horizontal midline, and placing victims by sampling from the configured GMM.
-
-The Main agent is the sole owner of the pheromone grid. Pheromone decays continuously according to an exponential model:
+The Main agent orchestrates the simulation. At initialization it seeds the random number generator for reproducibility, computes an evenly-spaced dispersal position for each UAV, and places victims by sampling the configured GMM. It also owns the shared pheromone grid, whose deposits decay by an exponential model:
 \begin{equation}
     \tau(t) = \tau_0 \cdot e^{-\rho\,(t - t_0)},
     \label{eq:evaporation}
 \end{equation}
-where $\tau_0$ is the deposited level recorded at reference time $t_0$ and $\rho$ is the evaporation rate. To avoid recomputing decay at every time step, the grid uses lazy evaluation. Each cell stores its last-deposited value and the timestamp of that deposit, and the current effective level is computed on demand by applying Equation~\eqref{eq:evaporation} at query time. This requires no background event for evaporation.
+where $\tau_0$ is the level deposited at reference time $t_0$ and $\rho$ is the evaporation rate. Each cell stores only its last value and deposit time, and the effective level is computed on demand from Equation~\eqref{eq:evaporation}, with no background evaporation event.
 
-When a UAV confirms a victim, the Main agent marks the nearest Victim instance as found and resets the pheromone to zero in a fixed radius around the confirmed location. It also appends an event record to a comma-separated values (CSV) log. This local reset opens the victim's vicinity for re-examination, which is useful under a clustered victim distribution. When all victims have been confirmed, the Main agent records the convergence time and terminates the simulation. A safety-stop event enforces a configurable time limit, recording a timeout result for any run that has not converged.
+When a UAV confirms a victim, the Main agent marks the nearest Victim found, clears pheromone around the location, and logs the event to a comma-separated values (CSV) file. Once all victims are found it records the convergence time and stops, and a safety-stop event logs a timeout for any run that exceeds a time limit.
 
 \subsection{UAV Agent}
 \label{sec:uav}
