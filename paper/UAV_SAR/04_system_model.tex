@@ -2,90 +2,46 @@
 \section{System Model}
 % ─────────────────────────────────────────────────────────────────────────────
 
-We implement the model in AnyLogic as three interacting agent types. This section covers the simulation environment and the Victim and Main agents, before turning to the UAV agent that carries the search behavior.
+This section describes the mathematical and logical structure of the simulation. We define the environment and the behaviors of each agent type to provide a clear view of the swarm dynamics.
 
-\subsection{Simulation Environment}
-
-The simulation environment is a two-dimensional continuous space of $45 \times 25$ meters. We overlay it with a shared pheromone grid of $90 \times 50$ cells, each covering a $0.5 \times 0.5$ meter area, which is the primary medium of stigmergic coordination. By default, the simulation runs two UAV agents and five Victim agents. A charging station sits at the bottom right of the search area.
-
-\subsection{Victim Agent}
-
-The Victim agent is a passive data container. Each instance holds a position assigned at initialization by the Main agent, plus three state variables: a flag indicating whether the victim has been found, the index of the discovering UAV, and the time of discovery. All victim logic runs in the Main agent, while the UAV handles sensing and confirmation.
-
-\subsection{Main Agent}
-
-The Main agent orchestrates the simulation. At initialization it seeds the random number generator for reproducibility, computes an evenly-spaced dispersal position for each UAV, and places victims by sampling the configured GMM. It also owns the shared pheromone grid, whose deposits decay by an exponential model:
+\paragraph{The Environment}
+The simulation takes place in a continuous area of $45 \times 25$ meters, as shown in Figure~\ref{fig:simulation}. We overlay this space with a shared pheromone grid to coordinate the swarm. Colored squares on the map indicate recently visited locations, where the intensity of the coverage can be read from the legend on the right. This space is inhabited by two UAV agents and five Victim agents. The Victim agents act as passive data containers that store their specific location and discovery status. They contain no internal logic and remain stationary throughout the mission for the sake of simplicity. The Main agent then orchestrates the simulation by initializing the environment and placing targets according to a GMM. This orchestrator also manages the pheromone grid and applies a lazy exponential decay model to simulate evaporation over time:
 \begin{equation}
-    \tau(t) = \tau_0 \cdot e^{-\rho\,(t - t_0)},
-    \label{eq:evaporation}
+    \tau(t) = \tau_0 \cdot e^{-\rho (t - t_0)} .
 \end{equation}
-where $\tau_0$ is the level deposited at reference time $t_0$ and $\rho$ is the evaporation rate. Each cell stores only its last value and deposit time, and the effective level is computed on demand from Equation~\eqref{eq:evaporation}, with no background evaporation event.
+In this model, $\tau(t)$ represents the current pheromone level, and $\tau_0$ is the level recorded at the last update time $t_0$. The parameter $\rho$ sets the evaporation rate. This decay ensures that the spatial memory of the swarm remains dynamic and responsive to recent sensor data.
 
-When a UAV confirms a victim, the Main agent marks the nearest Victim found, clears pheromone around the location, and logs the event to a comma-separated values (CSV) file. Once all victims are found it records the convergence time and stops, and a safety-stop event logs a timeout for any run that exceeds a time limit.
-
-\subsection{UAV Agent}
-\label{sec:uav}
-
-Each UAV runs the hierarchical statechart shown in Figure~\ref{fig:statechart}. The chart has three primary top-level modes: \textsc{Startup}, \textsc{Explore}, and \textsc{Exploit}, together with a \textsc{ChargingStation} mode that the UAV can enter from either \textsc{Explore} or \textsc{Exploit} at any time. A concurrent orthogonal state, \textsc{BatteryDischarge}, runs in parallel throughout the mission and continuously depletes the battery during flight.
-
-\subsubsection{Startup}
-
-At simulation start all UAVs share a common launch point. The \textsc{Startup} mode immediately moves each UAV to its pre-assigned dispersal position. The dispersal positions are evenly spaced so that the fleet enters the search space with minimal initial pheromone overlap. Sensing is active during the dispersal flight: a victim detected en route causes an immediate transition to \textsc{Exploit} without waiting for dispersal to complete. Once the UAV arrives at its dispersal target, \textsc{Startup} exits unconditionally and the main behavioral cycle begins in \textsc{Explore}.
-
-% ─────────────── full-width simulation figure ─────────────────────────────
+% ─────────────── Full-width simulation figure ─────────────────────────────
 \begin{figure*}[ht]
     \centering
-    \includegraphics[width=0.8\textwidth]{img/simulation.png}
-    \caption{A snapshot of the running simulation. The heat-map overlay shows the current pheromone distribution: green tones indicate high coverage intensity and white indicates unexplored territory. UAV2 (right) is in \textsc{Explore} mode: its blue FOV cone sweeps the area ahead, yellow dots show the $n$ candidate waypoints on the planning ring, and the red dot marks the selected destination. UAV1 (left) is in \textsc{Exploit} mode: the orange FOV cone indicates an active victim detection in progress. Red crosses mark already-confirmed victims.}
+    \includegraphics[width=\textwidth]{img/simulation.png}
+    \caption{Snapshot of the running simulation showing the pheromone distribution, where green tones indicate high coverage and white indicates unexplored territory. UAV2 on the right is in \texttt{Explore} mode, with its blue sensor cone sweeping the area ahead. UAV1 on the left is in \texttt{Exploit} mode, with an orange cone indicating an active victim detection. Red crosses mark victims that have already been confirmed.}
     \label{fig:simulation}
 \end{figure*}
 
-\subsubsection{Explore}
+\paragraph{Agent Behaviour}
+Once the environment is set up, we define how the agents behave within it. Each UAV follows a BDI architecture implemented through the hierarchical state chart shown in Figure~\ref{fig:statechart}. At the start of the mission, agents enter a \texttt{Startup} phase to reach pre-assigned dispersal positions. This ensures that the fleet begins the search with minimal overlap. Once in position, each UAV enters the main behavioural cycle, where it switches between the \texttt{Explore} and \texttt{Exploit} parent states. An orthogonal state called \texttt{BatteryDischarge} runs in parallel throughout the flight to simulate the continuous depletion of the battery at a constant rate.
 
-The \textsc{Explore} mode implements the reversed ACO coverage cycle. As shown in Figure~\ref{fig:statechart}, it cycles through four sub-states: \textsc{ExploreSense}, a branch node \textsc{ExploreAdaptStep}, \textsc{ExplorePlan}, and \textsc{ExploreMove}. The central idea is that at each planning cycle the UAV considers $n$ candidate waypoints arranged in a ring at distance $d$ from its current position.
-
-\paragraph{ExploreSense.}
-On every sensing tick (at 2\,Hz), the UAV sweeps a forward-facing field-of-view (FOV) cone over the area ahead of it. Any unfound victim that falls within the cone's angular extent and within sensor range triggers a detection signal. The UAV also records which grid cells the cone covers. It deposits pheromone into each of those cells and stamps them with the current time as their last-sensed timestamp, building up a shared spatial memory of where the swarm has already looked. Finally, it reads the pheromone level at each of the $n$ candidate positions on the planning ring and stores the minimum value $\tau_{\min}$, which feeds into the adaptive step check.
-
-\paragraph{ExplorePlan.}
-To choose a waypoint, the UAV scores each of the $n$ candidate positions on the planning ring. As shown in Figure~\ref{fig:simulation}, these candidates appear as yellow dots evenly spaced on a circle around the UAV, and the selected waypoint is marked in red. Each candidate $i$ receives a score:
+\paragraph{Searching for Victims}
+The core of this behavioural cycle is the search process within the \texttt{Explore} parent state. This mode implements a reversed ACO logic to cover the area. As shown in Figure~\ref{fig:simulation}, each UAV considers a ring of $n$ yellow candidate waypoints. The radius of this ring is called the step length $d$. The agent scores each candidate $i$ based on the local pheromone level $\tau_i$ and the staleness $\eta_i$ of the grid cell:
 \begin{equation}
-    s_i \;=\; \left(\frac{1}{1 + \tau_i}\right)^{\!\alpha} \cdot \eta_i^{\,\beta},
-    \label{eq:aco}
+    s_i = \left(\frac{1}{1 + \tau_i}\right)^{\alpha} \cdot \eta_i^{\beta} .
 \end{equation}
-where $\tau_i$ is the effective pheromone at the candidate's cell (from Eq.~\eqref{eq:evaporation}), $\eta_i = \max(0, 1 - f_i)$ is the cell's staleness, and $f_i$ is its freshness:
+In this scoring function, $\alpha$ and $\beta$ are exponents that weight the importance of pheromone repulsion and staleness attraction. Staleness is derived from the freshness $f_i$ of a cell, which tracks the time since it was last sensed:
 \begin{equation}
-    f_i(t) \;=\; \max\!\left(0,\;1 - \frac{t - t_{\mathrm{last},i}}{T_{\mathrm{stale}}}\right).
-    \label{eq:freshness}
+    f_i(t) = \max\left(0,\; 1 - \frac{t - t_{\mathrm{last},i}}{T_{\mathrm{stale}}}\right) .
 \end{equation}
-A cell sensed just moments ago has $f_i \approx 1$ and $\eta_i \approx 0$, while a cell not sensed for $T_{\mathrm{stale}}$ seconds has $f_i = 0$ and $\eta_i = 1$. The exponent $\alpha$ weights the pheromone repulsion term and $\beta$ weights the staleness attraction term. Candidates that fall within the collision-avoidance radius of another UAV receive a strong score penalty, discouraging clustering. The UAV then draws a waypoint by sampling from a probability distribution formed by normalizing the scores across all candidates. This preserves behavioral diversity while biasing movement toward low-pheromone, stale cells.
+The term $t_{\mathrm{last},i}$ is the timestamp of the last visit, and $T_{\mathrm{stale}}$ is a constant that defines when a cell is considered completely stale. Within the \texttt{ExploreSense} and \texttt{ExplorePlan} sub-states, the agent evaluates these scores and chooses a destination marked by a red circle in the simulation. The UAV then transitions to \texttt{ExploreMove} to fly toward the target.
 
-\paragraph{ExploreAdaptStep.}
-Before executing the plan above, a branch node checks whether $\tau_{\min}$ exceeds a configurable threshold. When this threshold is exceeded, every candidate on the ring already lies in well-covered territory. The UAV has thoroughly explored its immediate neighborhood and cycling through the same candidate ring would add little new coverage. In this case, the UAV scales up its step radius for the coming planning cycle:
+If the local area is already heavily covered, an \texttt{ExploreAdaptStep} node allows the UAV to escape the saturated neighbourhood. This mechanism checks the minimum pheromone level $\tau_{\min}$ among all candidates on the ring. When $\tau_{\min}$ is high, it indicates that even the least-explored candidate is in a well-covered region. In this case, the UAV increases its step length to jump further into fresh territory:
 \begin{equation}
-    d_{\mathrm{current}} = d \cdot \min\!\left(M,\; 1 + \tau_{\min}\right),
-    \label{eq:adaptstep}
+    d_{\mathrm{current}} = d \cdot \min\left(M,\; 1 + \tau_{\min}\right) .
 \end{equation}
-where $d$ is the base step length and $M$ is the configurable maximum multiplier (default $M = 2$). Enlarging the candidate ring lets the UAV escape the saturated neighborhood and reach fresher, less-covered territory beyond it.
+The parameter $M$ acts as a maximum multiplier to keep the jump distance within a reasonable range. This adaptive behaviour prevents the UAV from wasting time in areas that have already been thoroughly searched.
 
-\paragraph{ExploreMove.}
-The UAV flies directly toward the selected waypoint, the red dot in Figure~\ref{fig:simulation}. Sensing continues at 2\,Hz throughout the flight: if a victim enters the FOV cone at any point mid-trajectory, the UAV immediately transitions to \textsc{Exploit} without waiting to reach the waypoint. This transition is visible in Figure~\ref{fig:simulation}, where UAV1's orange FOV cone indicates an active victim detection. On arrival at the waypoint, the cycle returns to \textsc{ExploreSense}.
+\vspace{1cm}
+\paragraph{Confirming detections}
+A detection within the sensor cone initiates a transition to the \texttt{Exploit} parent state. As shown in Figure \ref{fig:simulation}, this shift is visible when the sensor cone of a UAV changes from blue to orange. The agent first enters the \texttt{ExploitVerify} sub-state to confirm the signal through a secondary sensing sweep before navigating to the target. Once the UAV reaches the victim, the \texttt{ExploitConfirm} state handles the final logging and mission statistics. This discovery is marked with a red cross on the map and the Main agent clears the nearby pheromone grid. The white unexplored zone surrounding the victim in the bottom right of Figure \ref{fig:simulation} illustrates this reset which encourages the swarm to re-examine the area. After the confirmation is complete, the agent returns to the \texttt{Explore} mode.
 
-\subsubsection{Exploit}
-
-\textsc{Exploit} is entered whenever a sensing operation detects a victim above the confidence threshold. The three sub-states, described here in execution order as shown in Figure~\ref{fig:statechart}, form a confirm-and-loop cycle.
-
-\paragraph{ExploitVerify.}
-The UAV continues sensing at 2\,Hz to confirm that the detected signal persists before committing to a physical approach. In our current implementation the sensor model is deterministic and fully accurate within its detection radius, so transient false positives cannot occur and this sub-state is functionally redundant. It is nonetheless included so the architecture generalizes cleanly to probabilistic sensor models where spurious detections are a genuine concern.
-
-\paragraph{ExploitApproach.}
-Once a stable detection is confirmed, the UAV flies directly to the target's sensed coordinates. Movement speed is the same as during exploration, with the only difference being that the destination is a victim location rather than a scored candidate waypoint.
-
-\paragraph{ExploitConfirm.}
-On arrival at the target, the UAV reports the confirmed discovery to the Main agent, which marks the victim, clears the local pheromone, and logs the event. The UAV then enters a local search mode, biasing its next several waypoint selections toward the confirmed location. This local bias is motivated directly by the GMM victim placement model described in Section~\ref{sec:design_victim}. Because victims cluster spatially around shared incident centers, confirming one victim makes nearby locations disproportionately likely to hold additional victims, and the local bias lets the UAV capitalize on that structure. Detection state is then reset and the loop returns to \textsc{ExploitVerify} to scan for additional nearby victims. If confidence remains below the threshold after the reset, the top-level condition routes the UAV back to \textsc{Explore}.
-
-\subsubsection{ChargingStation and Battery Management}
-
-A concurrent orthogonal statechart (\textsc{BatteryDischarge}) continuously depletes the battery at a constant rate during all non-charging flight. When the battery level drops below a configurable return threshold (default 20\%), a top-level transition preempts any ongoing mode, saves the UAV's current position, and routes it to \textsc{ChargingStation}.
-
-Within \textsc{ChargingStation}, the \textsc{MovingToCharger} sub-state navigates the UAV to the charging station. During this transit, all non-essential operations are suspended: sensing stops, pheromone deposits stop, and the UAV focuses solely on reaching the charger. With only movement active, the battery drains more slowly than during full exploration. The \textsc{Charging} sub-state then replenishes the battery at a fixed rate until it is fully charged. On completing a charge cycle, the waypoint planner uses the saved pre-charge position as a return target, so the UAV resumes its coverage mission from approximately where it was interrupted, limiting the coverage gap introduced by the battery return.
+\paragraph{Battery and Charging}
+When the battery level drops below a set threshold, the agent preempts its current task and enters the \texttt{ChargingStation} parent state. During the \texttt{MovingToCharger} phase, the UAV suspends non-essential operations like sensing and pheromone deposition. This energy saving mode halves the battery depletion rate while the agent travels toward the charging station at the bottom right of the environment. After reaching this location, the UAV enters the \texttt{Charging} sub-state to replenish its power. Once the battery is fully recharged, the agent uses its saved coordinates to return to the search area and resume its mission.

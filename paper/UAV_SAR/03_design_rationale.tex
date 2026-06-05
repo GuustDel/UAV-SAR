@@ -2,19 +2,14 @@
 \section{Design}
 % ─────────────────────────────────────────────────────────────────────────────
 
-\subsection{Pheromone Repulsion}
+A set of foundational design choices guides our approach to decentralized coordination. These high-level principles govern how the fleet explores the search area and responds to discovered victims.
 
-The core of our coordination system is pheromone repulsion. In a search context, high pheromone levels mean a UAV passed over a location recently. By scoring waypoints inversely to their pheromone levels, we ensure the swarm avoids redundant coverage and moves toward unexplored space. Pheromones evaporate over time to reflect that conditions might change or a victim might have been missed. The evaporation rate determines the spatial memory of the swarm and controls how quickly agents return to old areas.
+\paragraph{Pheromone Repulsion}
+The core of our coordination system is the use of repulsive pheromones. While standard ACO \citep{ar:Dorigo1996} uses pheromones as an attractor, we invert this signal to suit a SAR mission. In our model, high pheromone levels indicate that a UAV has recently passed over a specific grid cell. By scoring candidate waypoints inversely to their pheromone intensity, we ensure that the swarm avoids redundant coverage and is naturally pushed toward unexplored territory. These pheromones evaporate over time to represent a decaying spatial memory. This allows agents to eventually return to older areas, accounting for the possibility that a victim was missed or that environmental conditions have changed.
 
-\subsection{Explore and Exploit}
+\paragraph{Exploration--Exploitation Duality}
+The repulsive pheromone signal is balanced by an attractive signal from victim detections. This interaction creates a dynamic balance between exploration and exploitation that adapts to the mission state. In the absence of detections, pheromone repulsion dominates and forces agents to spread out into unsearched space. When a UAV identifies a victim, this exploratory behaviour is immediately overridden by a direct approach to the target. Following a successful confirmation, the agent remains in the vicinity briefly to perform a local search. This strategy allows the swarm to capitalize on the spatial structure of the environment by focusing resources where they are most likely to find more victims.
 
-Pheromone repulsion is balanced by victim attraction. When a UAV detects a victim, it immediately switches from exploration to a direct approach. These two signals create a dynamic balance without any central scheduling. Repulsive pheromones push agents into unsearched space while attractive victim signals pull them toward specific targets. After a discovery, the agent stays in the area briefly to look for more victims. This local search strategy exploits the fact that victims are usually found in clusters. The swarm thus adapts its behavior through purely local signals with no global state.
-
-\subsection{Transparent Behavior}
-
-We prioritize behavioral transparency by using hierarchical statecharts. Every mode is a named state and every decision is an explicit transition. This design makes the controller easy to understand and ensures that each state has a single responsibility. This transparency is essential for debugging and allows researchers to reason about expected results before running simulations. It avoids the problems of opaque controllers that offer no insight into why a specific behavior occurred.
-
-\subsection{Victim Placement}
+\paragraph{Victim Placement Model}
 \label{sec:design_victim}
-
-Finally, we model victim placement using a Gaussian Mixture Model to create realistic spatial clusters. Real disasters rarely result in victims spread uniformly across an area. Using clusters allows us to test the tension between exploration and exploitation. We can configure the number and spread of these clusters to evaluate how the swarm performs across different disaster scenarios ranging from concentrated incidents to broadly dispersed sites.
+We model victim placement using a Gaussian Mixture Model (GMM) to simulate the realistic spatial clustering found in disaster sites. Structural collapses or flooding events rarely result in victims being spread uniformly across a search area. Instead, victims tend to be concentrated in high-impact zones. Using a GMM allows us to generate these clusters and test the effectiveness of our local search bias. By varying the number and spread of these clusters, we can evaluate the robustness of our coordination strategy across a range of disaster scenarios, from single-point incidents to widely dispersed multi-site emergencies.
